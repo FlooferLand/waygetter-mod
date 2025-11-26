@@ -1,0 +1,29 @@
+{
+    "schemaVersion": 1,
+    "id": "${mod_id}",
+    "name": "${mod_name}",
+    "version": "${mod_version}",
+    "description": "${mod_description}",
+    "authors": ["FlooferLand"],
+    "contact": {
+        "homepage": "https://flooferland.com/",
+        "sources": "https://github.com/FlooferLand/ttvoice"
+    },
+    "license": "${mod_license}",
+    "environment": "*",
+    "icon": "icon.png",
+    "entrypoints": {
+        "main": [{ "value": "com.flooferland.tattletail.loaders.fabric.FabricEntrypoint", "adapter": "kotlin" }],
+        "modmenu": [{ "value": "com.flooferland.tattletail.loaders.fabric.TattleModMenu", "adapter": "kotlin" }]
+    },
+    "depends": {
+        "fabricloader": ">=$fabric_loader",
+        "minecraft": "${minecraft_range}",
+        "java": ">=$java",
+        "fabric-api": "*",
+        "fabric-language-kotlin": ">=$fabric_language_kotlin"
+    },
+    "suggests": {
+        "modmenu": ">=$mod_menu"
+    }
+}
