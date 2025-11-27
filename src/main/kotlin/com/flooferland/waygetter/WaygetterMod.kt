@@ -1,10 +1,10 @@
-package com.flooferland.tattletail.loaders
+package com.flooferland.waygetter
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-object TattleMod {
-    const val MOD_ID = "showbiz"
+object WaygetterMod {
+    const val MOD_ID = "waygetter"
     val log: Logger = LoggerFactory.getLogger(MOD_ID)
     val initMessage = arrayOf(
         "Me Tattletail, me love you!",
@@ -14,6 +14,6 @@ object TattleMod {
     )
 
     public fun initialize() {
-        log.info(initMessage.random())
+        initMessage.randomOrNull()?.let { log.info(it) }
     }
 }

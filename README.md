@@ -1,2 +1,3 @@
-# tattletail-mod
+# Waygetter Electronics mod
+
 A Tattletail Minecraft mod

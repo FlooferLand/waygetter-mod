@@ -7,14 +7,15 @@
     "authors": ["FlooferLand"],
     "contact": {
         "homepage": "https://flooferland.com/",
-        "sources": "https://github.com/FlooferLand/ttvoice"
+        "sources": "https://github.com/FlooferLand/waygetter-mod"
     },
     "license": "${mod_license}",
     "environment": "*",
     "icon": "icon.png",
     "entrypoints": {
-        "main": [{ "value": "com.flooferland.tattletail.loaders.fabric.FabricEntrypoint", "adapter": "kotlin" }],
-        "modmenu": [{ "value": "com.flooferland.tattletail.loaders.fabric.TattleModMenu", "adapter": "kotlin" }]
+        "main": [{ "value": "com.flooferland.waygetter.loaders.fabric.FabricEntrypoint", "adapter": "kotlin" }],
+        "client": [{ "value": "com.flooferland.waygetter.loaders.fabric.FabricClientEntrypoint", "adapter": "kotlin" }],
+        "modmenu": [{ "value": "WaygetterModMenu", "adapter": "kotlin" }]
     },
     "depends": {
         "fabricloader": ">=$fabric_loader",

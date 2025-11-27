@@ -48,7 +48,7 @@ stonecutter {
 loom {
     splitEnvironmentSourceSets()
     mods {
-        register("ttvoice") {
+        register("waygetter") {
             sourceSet(sourceSets["client"])
         }
     }
