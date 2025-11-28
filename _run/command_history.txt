@@ -1,0 +1,17 @@
+/gamerule doMobLoot flase
+/gamerule doMobSpawning false
+/kill @e[type=slime]
+/time set day
+/gamerule doWeatherCycle false
+/weather clear
+/time set day
+/gamerule doDaylightCycle false
+/kill @e[type=waygetter:tattletail]
+/summon minecraft:lightning_bolt ~ ~ ~
+/kill @e[type=waygetter:tattletail]
+/title @a title "SKILL ISSUE?"
+/time set night
+/time set midnight
+/time set day
+/time set midnight
+/time set day
