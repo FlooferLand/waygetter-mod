@@ -6,13 +6,12 @@
 	},
 	"name": "tattletail",
 	"model_identifier": "tattletail",
-	"front_gui_light": false,
 	"visible_box": [2, 2.5, 0.75],
 	"variable_placeholders": "",
 	"variable_placeholder_buttons": [],
 	"timeline_setups": [],
 	"unhandled_root_fields": {},
-	"activity_tracker": 10063,
+	"activity_tracker": 10087,
 	"geckolib_modid": "waygetter",
 	"geckolib_filepath_cache": {
 		"model": "E:\\Minecraft Mods\\waygetter\\src\\client\\resources\\assets\\waygetter\\geo\\tattletail.geo.json",
@@ -4042,7 +4041,7 @@
 			"uuid": "8683384b-6247-6bdc-d6fb-6ca7ebc8207f",
 			"export": true,
 			"locked": false,
-			"origin": [0, 5.5, -2.5],
+			"origin": [0, 0.125, -0.79167],
 			"rotation": [0, 0, 0],
 			"color": 0,
 			"name": "root",
@@ -4054,7 +4053,7 @@
 			"visibility": true,
 			"autouv": 0,
 			"isOpen": true,
-			"primary_selected": false
+			"primary_selected": true
 		},
 		{
 			"uuid": "f7cfbf8f-5e15-e8dc-f010-19ac96ab4b38",
@@ -4552,7 +4551,7 @@
 			"override": false,
 			"length": 3.125,
 			"snapping": 24,
-			"selected": true,
+			"selected": false,
 			"saved": true,
 			"path": "../assets/waygetter/animations/tattletail.animation.json",
 			"anim_time_update": "",
@@ -6343,38 +6342,5 @@
 				}
 			}
 		}
-	],
-	"display": {
-		"thirdperson_righthand": {
-			"rotation": [-143.51, 60.9, -152.29],
-			"translation": [1.25, 1.25, -0.25]
-		},
-		"thirdperson_lefthand": {
-			"rotation": [-143.51, 60.9, -152.29],
-			"translation": [1.25, 1.25, -0.25]
-		},
-		"firstperson_righthand": {
-			"rotation": [170, 37, -173],
-			"translation": [-2, -3.05, -0.5]
-		},
-		"firstperson_lefthand": {
-			"rotation": [170, 37, -173],
-			"translation": [-2, -3.05, -0.5]
-		},
-		"ground": {
-			"translation": [0, -1.75, 0],
-			"scale": [0.5, 0.5, 0.5]
-		},
-		"gui": {
-			"rotation": [-180, 23, -180],
-			"translation": [0, -8, 0]
-		},
-		"head": {
-			"translation": [0, -20.75, 2],
-			"scale": [2.5, 2.5, 2.5]
-		},
-		"fixed": {
-			"translation": [0, -6.25, 0]
-		}
-	}
+	]
 }

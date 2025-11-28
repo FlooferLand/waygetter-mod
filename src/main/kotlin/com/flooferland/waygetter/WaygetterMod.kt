@@ -1,6 +1,7 @@
 package com.flooferland.waygetter
 
 import com.flooferland.waygetter.registry.ModComponents
+import com.flooferland.waygetter.registry.ModEntities
 import com.flooferland.waygetter.registry.ModItemGroups
 import com.flooferland.waygetter.registry.ModItems
 import com.flooferland.waygetter.registry.ModPackets
@@ -28,6 +29,7 @@ object WaygetterMod {
             ModComponents
             ModItems.entries
             ModSounds.entries
+            ModEntities
 
             TattleManager
             ModItemGroups.entries  // should be at the end

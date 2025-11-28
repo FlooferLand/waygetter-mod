@@ -25,8 +25,7 @@ data class TattleState(
                 TattleState(timeIdle, scared, currentAnim, lastAnim)
             }
         }
+        fun load(tag: CompoundTag) = runCatching { CODEC.decode(NbtOps.INSTANCE, tag).orThrow }.getOrNull()?.first
     }
-
     fun save() = runCatching { CODEC.encodeStart(NbtOps.INSTANCE, this).orThrow }.getOrNull()
-    fun load(tag: CompoundTag) = runCatching { CODEC.decode(NbtOps.INSTANCE, tag).orThrow }.getOrNull()
 }

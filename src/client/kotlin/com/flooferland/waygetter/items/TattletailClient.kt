@@ -2,19 +2,20 @@ package com.flooferland.waygetter.items
 
 import net.minecraft.client.Minecraft
 import net.minecraft.client.resources.sounds.SimpleSoundInstance
-import net.minecraft.client.resources.sounds.SoundInstance
-import net.minecraft.sounds.SoundSource
 import com.flooferland.waygetter.components.TattleStateDataComponent
+import com.flooferland.waygetter.entities.TattletailEntity
 import com.flooferland.waygetter.registry.ModComponents
 import com.flooferland.waygetter.registry.ModItems
 import com.flooferland.waygetter.registry.ModSounds
+import com.flooferland.waygetter.systems.tattletail.TattleState
+import software.bernie.geckolib.animatable.GeoAnimatable
 import software.bernie.geckolib.animation.AnimatableManager
 import software.bernie.geckolib.animation.AnimationController
 import software.bernie.geckolib.animation.PlayState
 import software.bernie.geckolib.animation.RawAnimation
 import software.bernie.geckolib.constant.DataTickets
 
-object TattletailItemClient {
+object TattletailClient {
     val barkThatsMeAnim = RawAnimation.begin().thenPlay("animation.tattletail.thats_me")!!
     val barkMeTattletailAnim = RawAnimation.begin().thenPlay("animation.tattletail.me_tattletail")!!
 
@@ -23,11 +24,18 @@ object TattletailItemClient {
         "tattletail_bark_me_tattletail" to ModSounds.TattleBarkMeTattletail
     )
 
-    fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
-        val self = ModItems.Tattletail.item as TattletailItem
+    fun registerControllers(self: GeoAnimatable, controllers: AnimatableManager.ControllerRegistrar) {
         val controller = AnimationController(self, "main") { event ->
-            val stack = event.getData(DataTickets.ITEMSTACK) ?: return@AnimationController PlayState.CONTINUE
-            val state = stack.get(ModComponents.TattleStateData.type)?.state ?: return@AnimationController PlayState.CONTINUE
+            val state: TattleState = when (self) {
+                is TattletailItem -> {
+                    val stack = event.getData(DataTickets.ITEMSTACK) ?: return@AnimationController PlayState.CONTINUE
+                    stack.get(ModComponents.TattleStateData.type)?.state ?: return@AnimationController PlayState.CONTINUE
+                }
+                is TattletailEntity -> {
+                    self.state
+                }
+                else -> return@AnimationController PlayState.STOP
+            }
 
             if (state.currentAnim != state.lastAnim) {
                 state.lastAnim = state.currentAnim
@@ -41,7 +49,11 @@ object TattletailItemClient {
                         event.controller.setAnimation(barkMeTattletailAnim)
                     }
                 }
-                stack.set(ModComponents.TattleStateData.type, TattleStateDataComponent(state))
+
+                if (self is TattletailItem) {
+                    val stack = event.getData(DataTickets.ITEMSTACK)
+                    stack?.set(ModComponents.TattleStateData.type, TattleStateDataComponent(state))
+                }
             }
             PlayState.CONTINUE
         }
