@@ -15,7 +15,7 @@
     "entrypoints": {
         "main": [{ "value": "com.flooferland.waygetter.loaders.fabric.FabricEntrypoint", "adapter": "kotlin" }],
         "client": [{ "value": "com.flooferland.waygetter.loaders.fabric.FabricClientEntrypoint", "adapter": "kotlin" }],
-        "modmenu": [{ "value": "WaygetterModMenu", "adapter": "kotlin" }]
+        "modmenu": [{ "value": "com.flooferland.waygetter.loaders.fabric.WaygetterModMenu", "adapter": "kotlin" }]
     },
     "depends": {
         "fabricloader": ">=$fabric_loader",

@@ -14,6 +14,9 @@ repositories {
     // Mappings
     maven("https://maven.parchmentmc.org") { name = "ParchmentMC" }
 
+    // GeckoLib
+    maven("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/") { name = "GeckoLib" }
+
     // Mod Menu
     maven("https://maven.nucleoid.xyz/") { name = "Nucleoid" }
     maven("https://maven.shedaniel.me/")
@@ -49,7 +52,8 @@ loom {
     splitEnvironmentSourceSets()
     mods {
         register("waygetter") {
-            sourceSet(sourceSets["client"])
+            sourceSet("main")
+            sourceSet("client")
         }
     }
     runConfigs.all {
@@ -81,6 +85,9 @@ dependencies {
         modImplementation("net.fabricmc:fabric-language-kotlin:${dep("fabric_language_kotlin")}")
     }
 
+    // GeckoLib
+    modImplementation("software.bernie.geckolib:geckolib-${loader}-${minecraft}:${versionedDep("geckolib")}")
+
     // Config
     implementation("com.moandjiezana.toml:toml4j:${dep("toml4j")}")
     include("com.moandjiezana.toml:toml4j:${dep("toml4j")}")
@@ -103,6 +110,7 @@ tasks.withType<ProcessResources>().configureEach {
         "fabric_loader" to dep("fabric_loader"),
         "fabric_language_kotlin" to fabricLanguageKotlin,
         "mod_menu" to versionedDep("mod_menu"),
+        "geckolib" to versionedDep("geckolib"),
         "archivesName" to base.archivesName.get(),
         "archivesBaseName" to base.archivesName.get(),
 

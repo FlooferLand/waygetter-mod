@@ -9,6 +9,8 @@ import net.minecraft.world.item.Item.Properties
 import com.flooferland.waygetter.utils.rl
 
 enum class ModSounds {
+    TattleBarkMeTattletail("tattletail.bark.me_tattletail"),
+    TattleBarkThatsMe("tattletail.bark.thats_me")
     ;
 
     val id: ResourceLocation

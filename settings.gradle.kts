@@ -3,9 +3,6 @@ pluginManagement {
         gradlePluginPortal()
         mavenCentral()
 
-        // Modstitch
-        maven("https://maven.isxander.dev/releases/")
-
         // Loom platform
         maven("https://maven.fabricmc.net/")
 
@@ -35,7 +32,8 @@ stonecutter {
             loaders.forEach { vers("$name-$it", mcVersion) }
 
         // Targets
-        mc("1.21.1", loaders = listOf("fabric", "neoforge"))
+        // TODO: Add neoforge
+        mc("1.21.1", loaders = listOf("fabric"))
 
         vcsVersion = "1.21.1-fabric"
     }

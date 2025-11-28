@@ -1,9 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" factoryName="Application" name="Minecraft Client (:1.21.1-neoforge)" type="Application">
     <option name="MAIN_CLASS_NAME" value="net.fabricmc.devlaunchinjector.Main"/>
-    <module name="tattletail.1.21.1-neoforge.client"/>
+    <module name="waygetter.1.21.1-neoforge.client"/>
     <option name="PROGRAM_PARAMETERS" value=""/>
-    <option name="VM_PARAMETERS" value="-Dfabric.dli.config=E:\Minecraft@@0020Mods\tattletail\versions\1.21.1-neoforge\.gradle\loom-cache\launch.cfg -Dfabric.dli.env=client -Dfabric.dli.main=net.fabricmc.loader.launch.knot.KnotClient"/>
+    <option name="VM_PARAMETERS" value="-Dfabric.dli.config=E:\Minecraft@@0020Mods\waygetter\versions\1.21.1-neoforge\.gradle\loom-cache\launch.cfg -Dfabric.dli.env=client -Dfabric.dli.main=net.fabricmc.loader.launch.knot.KnotClient"/>
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/versions\1.21.1-neoforge/../../run/"/>
     <method v="2">
       <option enabled="true" name="Make"/>

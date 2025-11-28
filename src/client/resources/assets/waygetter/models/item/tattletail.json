@@ -1,0 +1,99 @@
+{
+  "parent": "builtin/entity",
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        -143.51000000000022,
+        60.90000000000009,
+        -152.28999999999996
+      ],
+      "translation": [
+        1.25,
+        1.25,
+        -0.25
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        -143.51000000000022,
+        60.90000000000009,
+        -152.28999999999996
+      ],
+      "translation": [
+        1.25,
+        1.25,
+        -0.25
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        170,
+        37,
+        -173
+      ],
+      "translation": [
+        -2,
+        -3.05,
+        -0.5
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        170,
+        37,
+        -173
+      ],
+      "translation": [
+        -2,
+        -3.05,
+        -0.5
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        -1.75,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "gui": {
+      "rotation": [
+        -180,
+        23,
+        -180
+      ],
+      "translation": [
+        0,
+        -8,
+        0
+      ]
+    },
+    "head": {
+      "translation": [
+        0,
+        -20.75,
+        2
+      ],
+      "scale": [
+        2.5,
+        2.5,
+        2.5
+      ]
+    },
+    "fixed": {
+      "translation": [
+        0,
+        -6.25,
+        0
+      ]
+    }
+  },
+  "textures": {
+    "particle": "waygetter:item/tattletail"
+  }
+}

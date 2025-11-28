@@ -1,0 +1,8 @@
+{
+    "tattletail.bark.me_tattletail": {
+        "sounds": ["waygetter:tattletail_bark_me_tattletail"]
+    },
+    "tattletail.bark.thats_me": {
+        "sounds": ["waygetter:tattletail_bark_thats_me"]
+    }
+}
