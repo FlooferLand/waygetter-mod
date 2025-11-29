@@ -1,5 +1,6 @@
 package com.flooferland.waygetter
 
+import net.minecraft.world.entity.player.Player
 import com.flooferland.waygetter.components.TattleStateDataComponent
 import com.flooferland.waygetter.entities.TattletailEntity
 import com.flooferland.waygetter.items.TattletailItem
@@ -44,12 +45,21 @@ object WaygetterModClient {
 
         // Packets
         ClientPlayNetworking.registerGlobalReceiver(TattleStatePacket.type) { packet, context ->
-            val player = context.player() ?: return@registerGlobalReceiver
-            val target = player.level().getPlayerByUUID(packet.ownerPlayer) ?: return@registerGlobalReceiver
-            val stack = target.getHeldItem { it.item is TattletailItem } ?: return@registerGlobalReceiver
-            val state = TattleState()
-            state.currentAnim = packet.playAnim
-            stack.set(ModComponents.TattleStateData.type, TattleStateDataComponent(state))
+            val mc = context.client() ?: return@registerGlobalReceiver
+            val level = mc.level ?: return@registerGlobalReceiver
+            fun setState(state: TattleState) {
+                state.currentAnim = packet.playAnim
+            }
+            val targetId = packet.owner
+            val entity = level.entitiesForRendering().firstOrNull { it.uuid == targetId } ?: return@registerGlobalReceiver
+            if (entity is Player) {
+                val stack = entity.getHeldItem { it.item is TattletailItem } ?: return@registerGlobalReceiver
+                val state = TattleState()
+                setState(state)
+                stack.set(ModComponents.TattleStateData.type, TattleStateDataComponent(state))
+            } else if (entity is TattletailEntity) {
+                setState(entity.state)
+            }
         }
     }
 }

@@ -2,12 +2,14 @@ package com.flooferland.waygetter.items
 
 import net.minecraft.client.Minecraft
 import net.minecraft.client.resources.sounds.SimpleSoundInstance
+import net.minecraft.sounds.SoundSource
 import com.flooferland.waygetter.components.TattleStateDataComponent
 import com.flooferland.waygetter.entities.TattletailEntity
 import com.flooferland.waygetter.registry.ModComponents
 import com.flooferland.waygetter.registry.ModItems
 import com.flooferland.waygetter.registry.ModSounds
 import com.flooferland.waygetter.systems.tattletail.TattleState
+import com.flooferland.waygetter.utils.WaygetterUtils
 import software.bernie.geckolib.animatable.GeoAnimatable
 import software.bernie.geckolib.animation.AnimatableManager
 import software.bernie.geckolib.animation.AnimationController
@@ -39,15 +41,9 @@ object TattletailClient {
 
             if (state.currentAnim != state.lastAnim) {
                 state.lastAnim = state.currentAnim
-                println("Controller played \"${state.currentAnim}\"")
                 when (state.currentAnim) {
-                    "thats_me" -> {
-                        event.controller.setAnimation(barkThatsMeAnim)
-                    }
-
-                    "me_tattletail" -> {
-                        event.controller.setAnimation(barkMeTattletailAnim)
-                    }
+                    "thats_me" -> event.controller.setAnimation(barkThatsMeAnim)
+                    "me_tattletail" -> event.controller.setAnimation(barkMeTattletailAnim)
                 }
 
                 if (self is TattletailItem) {
@@ -60,7 +56,13 @@ object TattletailClient {
         controller.setSoundKeyframeHandler { event ->
             val mc = Minecraft.getInstance() ?: return@setSoundKeyframeHandler
             val sound = sounds[event.keyframeData.sound] ?: return@setSoundKeyframeHandler
-            mc.soundManager.play(SimpleSoundInstance.forUI(sound.event, 1.0f, 1.0f))
+            val pitch = 1.0f + (WaygetterUtils.random.nextFloat() - 0.5f) * 0.08f
+            val volume = 1.0f + (WaygetterUtils.random.nextFloat() - 0.5f) * 0.1f
+            if (self is TattletailEntity) {
+                mc.soundManager.play(SimpleSoundInstance(sound.event, SoundSource.NEUTRAL, volume, pitch, WaygetterUtils.random, self.blockPosition()))
+            } else {
+                mc.soundManager.play(SimpleSoundInstance.forUI(sound.event, pitch, volume))
+            }
         }
         controllers.add(controller)
     }

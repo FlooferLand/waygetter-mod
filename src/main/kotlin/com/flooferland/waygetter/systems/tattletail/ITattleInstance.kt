@@ -5,7 +5,7 @@ import net.minecraft.world.level.Level
 
 interface ITattleInstance {
     var state: TattleState
+    val manager: TattleManager
     val level: Level
     val pos: BlockPos
-    fun playAnim(name: String)
 }

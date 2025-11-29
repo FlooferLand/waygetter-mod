@@ -9,7 +9,8 @@ import com.flooferland.waygetter.packets.TattleStatePacket
 import com.flooferland.waygetter.registry.ModComponents
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 
-class TattleItemStackInstance(val stack: ItemStack, private val player: ServerPlayer) : ITattleInstance {
+class TattleItemStackInstance(val stack: ItemStack, val player: ServerPlayer) : ITattleInstance {
+    override val manager = TattleManager(this)
     override var state: TattleState
         get() {
             val comp = stack.get(ModComponents.TattleStateData.type)
@@ -20,10 +21,4 @@ class TattleItemStackInstance(val stack: ItemStack, private val player: ServerPl
         }
     override val level: Level = player.level()
     override val pos: BlockPos = player.blockPosition()
-    override fun playAnim(name: String) {
-        for (player in level.players()) {
-            if (player !is ServerPlayer) continue
-            ServerPlayNetworking.send(player, TattleStatePacket(ownerPlayer = this.player.uuid, playAnim = name))
-        }
-    }
 }
