@@ -1,0 +1,82 @@
+{
+  "parent": "builtin/entity",
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        178.87,
+        24.35,
+        174.23
+      ],
+      "scale": [
+        0.6,
+        0.6,
+        0.6
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        178.8699999999999,
+        24.34999999999991,
+        174.23000000000002
+      ],
+      "scale": [
+        0.6,
+        0.6,
+        0.6
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        -176.02,
+        23.92,
+        171.76
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        -176.01999999999998,
+        23.920000000000073,
+        171.76000000000022
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        -4,
+        0
+      ]
+    },
+    "gui": {
+      "rotation": [
+        -180,
+        1.75,
+        -180
+      ],
+      "translation": [
+        0,
+        -8.25,
+        0
+      ]
+    },
+    "fixed": {
+      "translation": [
+        0,
+        -8.75,
+        -3.25
+      ]
+    }
+  },
+  "textures": {
+    "particle": "waygetter:item/mama"
+  }
+}

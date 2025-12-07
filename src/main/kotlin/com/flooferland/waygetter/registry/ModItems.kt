@@ -5,11 +5,14 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Item.Properties
+import com.flooferland.waygetter.items.MamaItem
 import com.flooferland.waygetter.items.TattletailItem
 import com.flooferland.waygetter.utils.rl
 
 enum class ModItems {
-    Tattletail("tattletail", ::TattletailItem);
+    Tattletail("tattletail", ::TattletailItem),
+    Mama("mama", ::MamaItem)
+    ;
 
     val id: ResourceLocation
     val item: Item

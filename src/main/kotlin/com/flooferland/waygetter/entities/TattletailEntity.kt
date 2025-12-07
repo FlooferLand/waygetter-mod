@@ -27,6 +27,9 @@ import kotlin.jvm.optionals.getOrNull
 class TattletailEntity(override val level: Level) : Entity(ModEntities.Tattletail.type, level), GeoEntity, ITattleInstance {
     val cache = GeckoLibUtil.createInstanceCache(this)!!
     override fun getAnimatableInstanceCache() = cache
+    override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
+        REGISTER_CONTROLLERS(this, controllers)
+    }
 
     var itemStack = ModItems.Tattletail.item.defaultInstance!!
 
@@ -73,9 +76,5 @@ class TattletailEntity(override val level: Level) : Entity(ModEntities.Tattletai
         player.setItemInHand(hand, itemStack)
         remove(RemovalReason.DISCARDED)
         return InteractionResult.SUCCESS
-    }
-
-    override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
-        REGISTER_CONTROLLERS(this, controllers)
     }
 }

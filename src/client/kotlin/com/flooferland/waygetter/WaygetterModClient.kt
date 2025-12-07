@@ -2,9 +2,12 @@ package com.flooferland.waygetter
 
 import net.minecraft.world.entity.player.Player
 import com.flooferland.waygetter.components.TattleStateDataComponent
+import com.flooferland.waygetter.entities.MamaEntity
 import com.flooferland.waygetter.entities.TattletailEntity
+import com.flooferland.waygetter.items.MamaItem
 import com.flooferland.waygetter.items.TattletailItem
 import com.flooferland.waygetter.items.TattletailClient
+import com.flooferland.waygetter.models.MamaModel
 import com.flooferland.waygetter.models.TattletailModel
 import com.flooferland.waygetter.packets.TattleStatePacket
 import com.flooferland.waygetter.registry.ModComponents
@@ -16,6 +19,8 @@ import com.flooferland.waygetter.utils.Extensions.getHeldItem
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry
 import software.bernie.geckolib.animatable.client.GeoRenderProvider
+import software.bernie.geckolib.animation.AnimationController
+import software.bernie.geckolib.animation.PlayState
 import software.bernie.geckolib.renderer.GeoEntityRenderer
 import software.bernie.geckolib.renderer.GeoItemRenderer
 
@@ -35,9 +40,28 @@ object WaygetterModClient {
             }
         }
 
+        // Mama GeckoLib model
+        run {
+            (ModItems.Mama.item as MamaItem).renderProviderHolder.value = object : GeoRenderProvider {
+                var renderer: GeoItemRenderer<*>? = null
+                override fun getGeoItemRenderer(): GeoItemRenderer<*>? {
+                    if (renderer == null) renderer = object : GeoItemRenderer<MamaItem>(MamaModel()) {}
+                    return renderer!!
+                }
+            }
+            EntityRendererRegistry.register(ModEntities.Mama.type) { context ->
+                object : GeoEntityRenderer<MamaEntity>(context, MamaModel()) {}
+            }
+        }
+
         // GeckoLib again
         TattletailItem.REGISTER_CONTROLLERS = { self, controllers ->
             TattletailClient.registerControllers(self, controllers)
+        }
+        MamaItem.REGISTER_CONTROLLERS = { self, controllers ->
+            controllers.add(AnimationController(self, "main") {
+                PlayState.CONTINUE
+            })
         }
 
         // Registers

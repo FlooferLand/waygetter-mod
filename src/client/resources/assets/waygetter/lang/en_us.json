@@ -1,4 +1,7 @@
 {
     "itemGroup.waygetter.main": "Waygetter Electronics",
-    "item.waygetter.tattletail": "Tattletail"
+    "item.waygetter.tattletail": "Tattletail",
+    "entity.waygetter.tattletail": "Tattletail",
+    "item.waygetter.mama": "Mama Tattletail",
+    "entity.waygetter.mama": "Mama Tattletail"
 }

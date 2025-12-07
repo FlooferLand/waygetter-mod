@@ -4,5 +4,13 @@
     },
     "tattletail.bark.thats_me": {
         "sounds": ["waygetter:tattletail_bark_thats_me"]
+    },
+    "mama.taunt": {
+        "sounds": [
+            "waygetter:mama_bark_come_to_mama",
+            "waygetter:mama_bark_look_after_you_01",
+            "waygetter:mama_bark_look_after_you_02",
+            "waygetter:mama_bark_mamas_coming"
+        ]
     }
 }
