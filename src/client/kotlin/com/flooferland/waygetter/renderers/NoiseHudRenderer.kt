@@ -2,8 +2,11 @@ package com.flooferland.waygetter.renderers
 
 import net.minecraft.client.*
 import net.minecraft.client.gui.*
+import com.flooferland.waygetter.items.FlashlightItem
 import com.flooferland.waygetter.items.TattletailItem
 import com.flooferland.waygetter.systems.NoiseTrackerClient
+import com.flooferland.waygetter.utils.Extensions.canMakeSound
+import com.flooferland.waygetter.utils.Extensions.isProvokingMama
 import com.flooferland.waygetter.utils.WaygetterUtils
 import com.flooferland.waygetter.utils.rl
 import com.mojang.blaze3d.systems.RenderSystem
@@ -18,7 +21,7 @@ object NoiseHudRenderer {
             val client = Minecraft.getInstance()
             val player = client.player ?: return@register
             if (client.screen != null) return@register
-            if (!player.isHolding { it.item is TattletailItem }) return@register
+            if (!player.canMakeSound()) return@register
 
             render(graphics, graphics.guiWidth(), graphics.guiHeight())
         }

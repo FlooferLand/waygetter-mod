@@ -20,5 +20,7 @@
             "waygetter:noise_beep_03",
             "waygetter:noise_beep_04"
         ]
-    }
+    },
+    "flashlight_shake": { "sounds": ["waygetter:flashlight_shake"] },
+    "flashlight_shake_gold": { "sounds": ["waygetter:flashlight_shake_gold"] }
 }

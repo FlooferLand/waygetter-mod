@@ -10,7 +10,8 @@ enum class ModSounds {
     TattleBarkMeTattletail("tattletail.bark.me_tattletail"),
     TattleBarkThatsMe("tattletail.bark.thats_me"),
     MamaTaunt("mama.taunt"),
-    NoiseBeep("noise_beep")
+    NoiseBeep("noise_beep"),
+    FlashlightShake("flashlight_shake")
     ;
 
     val id: ResourceLocation

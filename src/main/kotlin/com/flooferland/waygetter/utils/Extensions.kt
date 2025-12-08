@@ -9,10 +9,20 @@ import net.minecraft.world.entity.*
 import net.minecraft.world.entity.player.*
 import net.minecraft.world.item.*
 import net.minecraft.world.level.block.entity.*
+import com.flooferland.waygetter.items.FlashlightItem
+import com.flooferland.waygetter.items.TattletailItem
 import java.util.UUID
 
 @Suppress("unused")
 object Extensions {
+    // Waygetter mod specific
+    fun Player.isProvokingMama(): Boolean {
+        return isHolding { it.item is TattletailItem }
+    }
+    fun Player.canMakeSound(): Boolean {
+        return isProvokingMama() || isHolding { it.item is FlashlightItem }
+    }
+
     // Resource locations
     fun ResourceLocation.blockPath(): ResourceLocation {
         return this.withPrefix("block/");

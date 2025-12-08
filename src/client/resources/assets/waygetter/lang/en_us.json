@@ -1,7 +1,12 @@
 {
     "itemGroup.waygetter.main": "Waygetter Electronics",
+
     "item.waygetter.tattletail": "Tattletail",
     "entity.waygetter.tattletail": "Tattletail",
+
     "item.waygetter.mama": "Mama Tattletail",
-    "entity.waygetter.mama": "Mama Tattletail"
+    "entity.waygetter.mama": "Mama Tattletail",
+
+    "item.waygetter.flashlight": "Flashlight",
+    "item.waygetter.flashlight.gold": "Golden Flashlight"
 }

@@ -4,9 +4,12 @@ import net.minecraft.world.entity.player.Player
 import com.flooferland.waygetter.components.TattleStateDataComponent
 import com.flooferland.waygetter.entities.MamaEntity
 import com.flooferland.waygetter.entities.TattletailEntity
+import com.flooferland.waygetter.items.FlashlightClient
+import com.flooferland.waygetter.items.FlashlightItem
 import com.flooferland.waygetter.items.MamaItem
 import com.flooferland.waygetter.items.TattletailItem
 import com.flooferland.waygetter.items.TattletailClient
+import com.flooferland.waygetter.models.FlashlightModel
 import com.flooferland.waygetter.models.MamaModel
 import com.flooferland.waygetter.models.TattletailModel
 import com.flooferland.waygetter.packets.TattleStatePacket
@@ -14,6 +17,7 @@ import com.flooferland.waygetter.registry.ModComponents
 import com.flooferland.waygetter.registry.ModEntities
 import com.flooferland.waygetter.registry.ModItems
 import com.flooferland.waygetter.registry.ModPackets
+import com.flooferland.waygetter.renderers.FlashlightRenderer
 import com.flooferland.waygetter.renderers.NoiseHudRenderer
 import com.flooferland.waygetter.systems.NoiseTrackerClient
 import com.flooferland.waygetter.systems.tattletail.TattleState
@@ -62,6 +66,15 @@ object WaygetterModClient {
             }
         }
 
+        // Flashlight GeckoLib model
+        (ModItems.Flashlight.item as FlashlightItem).renderProviderHolder.value = object : GeoRenderProvider {
+            var renderer: FlashlightRenderer? = null
+            override fun getGeoItemRenderer(): FlashlightRenderer {
+                if (renderer == null) renderer = FlashlightRenderer()
+                return renderer!!
+            }
+        }
+
         // GeckoLib again
         TattletailItem.REGISTER_CONTROLLERS = { self, controllers ->
             TattletailClient.registerControllers(self, controllers)
@@ -70,6 +83,9 @@ object WaygetterModClient {
             controllers.add(AnimationController(self, "main") {
                 PlayState.CONTINUE
             })
+        }
+        FlashlightItem.REGISTER_CONTROLLERS = { self, controllers ->
+            FlashlightClient.registerControllers(self, controllers)
         }
 
         // Packets
