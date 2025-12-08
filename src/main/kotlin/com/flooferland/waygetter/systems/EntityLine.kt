@@ -11,12 +11,14 @@ import net.minecraft.world.phys.HitResult
  * Useful to detect if the player is in reach to be attacked by the entity.
  */
 class EntityLine(private val owner: Entity, val maxDist: Double) {
+    val maxDistSqrt = maxDist * maxDist
+
     /** Returns all players it has a line to */
     fun getAll(): List<ServerPlayer> {
         val level = owner.level() as? ServerLevel ?: return listOf()
         val picked = mutableListOf<ServerPlayer>()
         for (player in level.players()) {
-            if (player.distanceToSqr(owner) > maxDist * maxDist) continue
+            if (player.distanceToSqr(owner) > maxDistSqrt) continue
             if (hasLineTo(player)) picked.add(player)
         }
         return picked
@@ -26,7 +28,7 @@ class EntityLine(private val owner: Entity, val maxDist: Double) {
     fun getFirst(): ServerPlayer? {
         val level = owner.level() as? ServerLevel ?: return null
         for (player in level.players()) {
-            if (player.distanceToSqr(owner) > maxDist * maxDist) continue
+            if (player.distanceToSqr(owner) > maxDistSqrt) continue
             if (hasLineTo(player)) return player
         }
         return null
@@ -40,7 +42,7 @@ class EntityLine(private val owner: Entity, val maxDist: Double) {
         val level = player.level() as? ServerLevel ?: return false
         val start = player.getEyePosition()
         val end = owner.position().add(0.0, 0.5, 0.0)
-        if (start.distanceTo(end) > maxDist) return false
+        if (start.distanceToSqr(end) > maxDistSqrt) return false
 
         val hit = level.clip(ClipContext(start, end, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player))
         if (hit.type == HitResult.Type.MISS) {

@@ -14,6 +14,8 @@ import com.flooferland.waygetter.registry.ModComponents
 import com.flooferland.waygetter.registry.ModEntities
 import com.flooferland.waygetter.registry.ModItems
 import com.flooferland.waygetter.registry.ModPackets
+import com.flooferland.waygetter.renderers.NoiseHudRenderer
+import com.flooferland.waygetter.systems.NoiseTrackerClient
 import com.flooferland.waygetter.systems.tattletail.TattleState
 import com.flooferland.waygetter.utils.Extensions.getHeldItem
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
@@ -26,6 +28,12 @@ import software.bernie.geckolib.renderer.GeoItemRenderer
 
 object WaygetterModClient {
     public fun initialize() {
+        run {
+            ModPackets.registerC2S()
+            NoiseTrackerClient.init()
+            NoiseHudRenderer.init()
+        }
+
         // Tattletail GeckoLib model
         run {
             (ModItems.Tattletail.item as TattletailItem).renderProviderHolder.value = object : GeoRenderProvider {
@@ -64,10 +72,8 @@ object WaygetterModClient {
             })
         }
 
-        // Registers
-        ModPackets.registerC2S()
-
         // Packets
+        // TODO: Move this into its own separate class mirroring the server/common-side one
         ClientPlayNetworking.registerGlobalReceiver(TattleStatePacket.type) { packet, context ->
             val mc = context.client() ?: return@registerGlobalReceiver
             val level = mc.level ?: return@registerGlobalReceiver

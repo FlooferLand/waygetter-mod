@@ -6,6 +6,7 @@ import com.flooferland.waygetter.registry.ModItemGroups
 import com.flooferland.waygetter.registry.ModItems
 import com.flooferland.waygetter.registry.ModPackets
 import com.flooferland.waygetter.registry.ModSounds
+import com.flooferland.waygetter.systems.NoiseTracker
 import com.flooferland.waygetter.systems.tattletail.TattleManager
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -31,6 +32,7 @@ object WaygetterMod {
             ModSounds.entries
             ModEntities
 
+            NoiseTracker.register()
             TattleManager
             ModItemGroups.entries  // should be at the end
             ModPackets.registerS2C()

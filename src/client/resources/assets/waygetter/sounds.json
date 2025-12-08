@@ -12,5 +12,13 @@
             "waygetter:mama_bark_look_after_you_02",
             "waygetter:mama_bark_mamas_coming"
         ]
+    },
+    "noise_beep": {
+        "sounds": [
+            "waygetter:noise_beep_01",
+            "waygetter:noise_beep_02",
+            "waygetter:noise_beep_03",
+            "waygetter:noise_beep_04"
+        ]
     }
 }

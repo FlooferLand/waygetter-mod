@@ -12,6 +12,7 @@ import com.flooferland.waygetter.items.TattletailItem
 import com.flooferland.waygetter.packets.TattleStatePacket
 import com.flooferland.waygetter.registry.ModComponents
 import com.flooferland.waygetter.registry.ModSounds
+import com.flooferland.waygetter.systems.NoiseTracker
 import com.flooferland.waygetter.utils.WaygetterUtils
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
@@ -42,10 +43,11 @@ class TattleManager(val instance: ITattleInstance) {
         val level = instance.level as? ServerLevel ?: return
         val lightLevel = level.getBrightness(LightLayer.BLOCK, instance.pos)
 
+        // Adjusting state
         state.timeIdle++
         if (state.timeIdle > state.nextYapTime) {
             state.timeIdle = 0
-            state.nextYapTime = (20 * 4) + (20 * WaygetterUtils.random.nextIntBetweenInclusive(5, 20))
+            state.nextYapTime = (20 * 3) + (20 * WaygetterUtils.random.nextIntBetweenInclusive(5, 20))
             run {
                 val owner = getOwner() ?: return@run
                 val nearestPlayer = level.getNearestPlayer(owner, 10.0) ?: return@run
@@ -56,6 +58,12 @@ class TattleManager(val instance: ITattleInstance) {
             }
         }
         instance.state = state
+
+        // Side effects
+        val owner = getOwner()
+        if (state.timeIdle < 20 * 2.2f && owner is ServerPlayer) {
+            NoiseTracker.add(owner, NoiseTracker.NOISE_MEDIUM)
+        }
     }
 
     fun getOwner() = when (instance) {

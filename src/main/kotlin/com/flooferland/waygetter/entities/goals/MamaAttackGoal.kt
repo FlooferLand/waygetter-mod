@@ -16,8 +16,8 @@ class MamaAttackGoal(val mama: MamaEntity) : Goal() {
         if (attackCooldown > 0) { attackCooldown -= 1; return }
         val attackable = getAttackable() ?: return
         if (attackCooldown == 0) {
-            attackable.hurt(attackable.damageSources().mobAttack(mama), 1.0f)
-            attackCooldown = 10
+            attackable.hurt(attackable.damageSources().mobAttack(mama), 3.0f)
+            attackCooldown = 5
         }
     }
 }

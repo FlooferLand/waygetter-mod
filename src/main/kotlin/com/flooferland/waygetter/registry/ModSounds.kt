@@ -4,14 +4,13 @@ import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.sounds.SoundEvent
-import net.minecraft.world.item.Item
-import net.minecraft.world.item.Item.Properties
 import com.flooferland.waygetter.utils.rl
 
 enum class ModSounds {
     TattleBarkMeTattletail("tattletail.bark.me_tattletail"),
     TattleBarkThatsMe("tattletail.bark.thats_me"),
-    MamaTaunt("mama.taunt")
+    MamaTaunt("mama.taunt"),
+    NoiseBeep("noise_beep")
     ;
 
     val id: ResourceLocation
