@@ -13,11 +13,6 @@ import software.bernie.geckolib.renderer.GeoRenderer
 import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer
 
 class FlashlightGlowLayer(renderer: GeoRenderer<FlashlightItem>) : AutoGlowingGeoLayer<FlashlightItem>(renderer) {
-    override fun getRenderType(animatable: FlashlightItem?, bufferSource: MultiBufferSource?): RenderType? {
-        val texture = AutoGlowingTexture.getEmissiveResource(getTextureResource(animatable))
-        return RenderType.outline(texture)
-    }
-
     override fun render(poseStack: PoseStack, animatable: FlashlightItem, bakedModel: BakedGeoModel, renderType: RenderType?, bufferSource: MultiBufferSource, buffer: VertexConsumer?, partialTick: Float, packedLight: Int, packedOverlay: Int) {
         val player = Minecraft.getInstance()?.player ?: return
 

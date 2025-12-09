@@ -53,11 +53,10 @@ class FlashlightItem(properties: Properties) : Item(properties), GeoItem {
         if (!isSelected) return
         val newBattery = (entity.entityData.get(ModSynchedData.flashlightBattery) - DECAY).coerceIn(0f..1f)
         entity.entityData.set(ModSynchedData.flashlightBattery, newBattery)
-        entity.displayClientMessage(Component.literal("Battery: ${(newBattery * 100).toInt()}%"), true)
     }
 
     override fun onUseTick(level: Level, livingEntity: LivingEntity, stack: ItemStack, remainingUseDuration: Int) {
-        val level = level as? ServerLevel ?: return
+        if (level !is ServerLevel) return
         val player = livingEntity as? ServerPlayer ?: return
         player.entityData.set(ModSynchedData.flashlightBattery, (player.entityData.get(ModSynchedData.flashlightBattery) + GAIN).coerceIn(0f..1f))
         NoiseTracker.add(player, NoiseTracker.NOISE_MEDIUM)

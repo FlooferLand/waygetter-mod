@@ -9,7 +9,7 @@ class FlashlightModel<T: GeoAnimatable> : GeoModel<T>() {
     override fun getModelResource(animatable: T) = rl("geo/flashlight.geo.json")
 
     @Deprecated("Supressed")
-    override fun getTextureResource(animatable: T) = rl("textures/item/flashlight.png")
+    override fun getTextureResource(animatable: T) = rl("textures/item/flashlight_empty.png")
 
     override fun getAnimationResource(animatable: T) = rl("animations/flashlight.animation.json")
 }
