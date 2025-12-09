@@ -12,6 +12,7 @@
     "license": "${mod_license}",
     "environment": "*",
     "icon": "icon.png",
+    "mixins": ["waygetter.mixins.json"],
     "entrypoints": {
         "main": [{ "value": "com.flooferland.waygetter.loaders.fabric.FabricEntrypoint", "adapter": "kotlin" }],
         "client": [{ "value": "com.flooferland.waygetter.loaders.fabric.FabricClientEntrypoint", "adapter": "kotlin" }],

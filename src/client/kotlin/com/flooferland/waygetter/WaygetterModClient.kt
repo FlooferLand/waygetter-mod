@@ -9,7 +9,6 @@ import com.flooferland.waygetter.items.FlashlightItem
 import com.flooferland.waygetter.items.MamaItem
 import com.flooferland.waygetter.items.TattletailItem
 import com.flooferland.waygetter.items.TattletailClient
-import com.flooferland.waygetter.models.FlashlightModel
 import com.flooferland.waygetter.models.MamaModel
 import com.flooferland.waygetter.models.TattletailModel
 import com.flooferland.waygetter.packets.TattleStatePacket
@@ -19,6 +18,7 @@ import com.flooferland.waygetter.registry.ModItems
 import com.flooferland.waygetter.registry.ModPackets
 import com.flooferland.waygetter.renderers.FlashlightRenderer
 import com.flooferland.waygetter.renderers.NoiseHudRenderer
+import com.flooferland.waygetter.systems.FlashlightLightManager
 import com.flooferland.waygetter.systems.NoiseTrackerClient
 import com.flooferland.waygetter.systems.tattletail.TattleState
 import com.flooferland.waygetter.utils.Extensions.getHeldItem
@@ -36,6 +36,7 @@ object WaygetterModClient {
             ModPackets.registerC2S()
             NoiseTrackerClient.init()
             NoiseHudRenderer.init()
+            FlashlightLightManager.init()
         }
 
         // Tattletail GeckoLib model

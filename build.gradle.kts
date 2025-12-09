@@ -24,6 +24,9 @@ repositories {
 
     // Dev Auth
     maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1")
+
+    // Veil
+    maven("https://maven.blamejared.com") { name = "BlameJared Maven (CrT / Bookshelf)" }
 }
 
 val minecraft = stonecutter.current.version
@@ -87,6 +90,12 @@ dependencies {
 
     // GeckoLib
     modImplementation("software.bernie.geckolib:geckolib-${loader}-${minecraft}:${versionedDep("geckolib")}")
+
+    // Veil
+    modImplementation("foundry.veil:veil-$loader-$minecraft:${versionedDep("veil")}") {
+        exclude(group = "maven.modrinth")
+        exclude(group = "me.fallenbreath")
+    }
 
     // Config
     implementation("com.moandjiezana.toml:toml4j:${dep("toml4j")}")

@@ -6,11 +6,11 @@ import com.flooferland.waygetter.registry.ModItemGroups
 import com.flooferland.waygetter.registry.ModItems
 import com.flooferland.waygetter.registry.ModPackets
 import com.flooferland.waygetter.registry.ModSounds
+import com.flooferland.waygetter.registry.ModSynchedData
 import com.flooferland.waygetter.systems.NoiseTracker
 import com.flooferland.waygetter.systems.tattletail.TattleManager
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import kotlin.reflect.full.createInstance
 
 object WaygetterMod {
     const val MOD_ID = "waygetter"
@@ -28,6 +28,7 @@ object WaygetterMod {
         @Suppress("UnusedExpression")
         run {
             ModComponents
+            ModSynchedData
             ModItems.entries
             ModSounds.entries
             ModEntities
