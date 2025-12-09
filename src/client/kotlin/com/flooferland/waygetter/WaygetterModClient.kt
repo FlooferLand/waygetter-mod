@@ -17,6 +17,7 @@ import com.flooferland.waygetter.registry.ModEntities
 import com.flooferland.waygetter.registry.ModItems
 import com.flooferland.waygetter.registry.ModPackets
 import com.flooferland.waygetter.renderers.FlashlightRenderer
+import com.flooferland.waygetter.renderers.MamaEntityRenderer
 import com.flooferland.waygetter.renderers.NoiseHudRenderer
 import com.flooferland.waygetter.systems.FlashlightLightManager
 import com.flooferland.waygetter.systems.NoiseTrackerClient
@@ -41,6 +42,9 @@ object WaygetterModClient {
 
         // Tattletail GeckoLib model
         run {
+            EntityRendererRegistry.register(ModEntities.Tattletail.type) { context ->
+                object : GeoEntityRenderer<TattletailEntity>(context, TattletailModel()) {}
+            }
             (ModItems.Tattletail.item as TattletailItem).renderProviderHolder.value = object : GeoRenderProvider {
                 var renderer: GeoItemRenderer<*>? = null
                 override fun getGeoItemRenderer(): GeoItemRenderer<*>? {
@@ -48,22 +52,17 @@ object WaygetterModClient {
                     return renderer!!
                 }
             }
-            EntityRendererRegistry.register(ModEntities.Tattletail.type) { context ->
-                object : GeoEntityRenderer<TattletailEntity>(context, TattletailModel()) {}
-            }
         }
 
         // Mama GeckoLib model
         run {
+            EntityRendererRegistry.register(ModEntities.Mama.type) { MamaEntityRenderer(it) }
             (ModItems.Mama.item as MamaItem).renderProviderHolder.value = object : GeoRenderProvider {
                 var renderer: GeoItemRenderer<*>? = null
                 override fun getGeoItemRenderer(): GeoItemRenderer<*>? {
                     if (renderer == null) renderer = object : GeoItemRenderer<MamaItem>(MamaModel()) {}
                     return renderer!!
                 }
-            }
-            EntityRendererRegistry.register(ModEntities.Mama.type) { context ->
-                object : GeoEntityRenderer<MamaEntity>(context, MamaModel()) {}
             }
         }
 
