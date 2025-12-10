@@ -6,6 +6,7 @@ import com.flooferland.waygetter.entities.MamaEntity
 import com.flooferland.waygetter.entities.TattletailEntity
 import com.flooferland.waygetter.items.FlashlightClient
 import com.flooferland.waygetter.items.FlashlightItem
+import com.flooferland.waygetter.items.MamaClient
 import com.flooferland.waygetter.items.MamaItem
 import com.flooferland.waygetter.items.TattletailItem
 import com.flooferland.waygetter.items.TattletailClient
@@ -80,9 +81,7 @@ object WaygetterModClient {
             TattletailClient.registerControllers(self, controllers)
         }
         MamaItem.REGISTER_CONTROLLERS = { self, controllers ->
-            controllers.add(AnimationController(self, "main") {
-                PlayState.CONTINUE
-            })
+            MamaClient.registerControllers(self, controllers)
         }
         FlashlightItem.REGISTER_CONTROLLERS = { self, controllers ->
             FlashlightClient.registerControllers(self, controllers)
