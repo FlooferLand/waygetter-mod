@@ -13,14 +13,14 @@ object MamaClient {
     fun registerControllers(self: GeoAnimatable, controllers: AnimatableManager.ControllerRegistrar) {
         val controller = AnimationController(self, "main") { event ->
             val entity = self as? MamaEntity ?: return@AnimationController PlayState.CONTINUE
-            if (entity.moveDist > 0f) {
+            if (event.isMoving) {
                 event.controller.setAnimation(walkAnim)
                 return@AnimationController PlayState.CONTINUE
             }
 
             // Resetting
             event.controller.setAnimation(null)
-            PlayState.CONTINUE
+            PlayState.STOP
         }
         controllers.add(controller)
     }
