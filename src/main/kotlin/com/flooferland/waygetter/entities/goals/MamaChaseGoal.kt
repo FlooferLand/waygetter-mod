@@ -21,7 +21,6 @@ import kotlin.math.sin
 
 class MamaChaseGoal(val mama: MamaEntity) : Goal() {
     var lastNavTick = initialCooldown
-    var victim: ServerPlayer? = null
     var victimLastPos: Vec3? = null
 
     companion object {
@@ -37,7 +36,7 @@ class MamaChaseGoal(val mama: MamaEntity) : Goal() {
     override fun canUse(): Boolean {
         if (mama.sight.seenByAnyone()) return false
         val level = mama.level() as? ServerLevel ?: return false
-        victim?.let { if (it.distanceTo(mama) <= RESTRAINING_ORDER) return false }
+        mama.victim?.let { if (it.distanceTo(mama) <= RESTRAINING_ORDER) return false }
         return level.players().any { player ->
             player.distanceToSqr(mama) < mama.maxDistSqrt
             && player.isProvokingMama()
@@ -46,7 +45,7 @@ class MamaChaseGoal(val mama: MamaEntity) : Goal() {
 
     override fun start() {
         val level = mama.level() as? ServerLevel ?: return
-        val victim = victim ?:
+        val victim = mama.victim ?:
             level.players().first { player ->
                 player.distanceToSqr(mama) < mama.maxDistSqrt
                         && player.isProvokingMama()
@@ -55,12 +54,14 @@ class MamaChaseGoal(val mama: MamaEntity) : Goal() {
             mama.navigation.moveTo(victim, 0.7)
         }
         lastNavTick = initialCooldown
-        this.victim = victim
+        mama.victim = victim
     }
 
     override fun stop() {
         mama.navigation.stop()
-        victim = null
+        if (mama.victim?.isProvokingMama() != true) {
+            mama.victim = null
+        }
     }
 
     override fun tick() {
@@ -73,7 +74,7 @@ class MamaChaseGoal(val mama: MamaEntity) : Goal() {
 
     /** Called while no player is looking */
     private fun tickUnseen(level: ServerLevel) {
-        val victim = victim ?: return
+        val victim = mama.victim ?: return
         val victimLastPos = victimLastPos ?: victim.position()
         val makingProgress = mama.distanceToSqr(victimLastPos) < mama.distanceToSqr(victim.position())
 

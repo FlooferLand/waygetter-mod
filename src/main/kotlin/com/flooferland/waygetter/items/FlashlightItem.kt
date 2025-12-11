@@ -16,6 +16,7 @@ import com.flooferland.waygetter.registry.ModItems
 import com.flooferland.waygetter.registry.ModSynchedData
 import com.flooferland.waygetter.systems.NoiseTracker
 import com.flooferland.waygetter.utils.Extensions.getHeldItem
+import com.flooferland.waygetter.utils.Extensions.isProvokingMama
 import java.util.function.Consumer
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import org.apache.commons.lang3.mutable.MutableObject

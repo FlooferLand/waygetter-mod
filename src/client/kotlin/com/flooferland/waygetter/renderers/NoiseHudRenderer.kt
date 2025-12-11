@@ -2,11 +2,8 @@ package com.flooferland.waygetter.renderers
 
 import net.minecraft.client.*
 import net.minecraft.client.gui.*
-import com.flooferland.waygetter.items.FlashlightItem
-import com.flooferland.waygetter.items.TattletailItem
 import com.flooferland.waygetter.systems.NoiseTrackerClient
 import com.flooferland.waygetter.utils.Extensions.canMakeSound
-import com.flooferland.waygetter.utils.Extensions.isProvokingMama
 import com.flooferland.waygetter.utils.WaygetterUtils
 import com.flooferland.waygetter.utils.rl
 import com.mojang.blaze3d.systems.RenderSystem
@@ -33,20 +30,21 @@ object NoiseHudRenderer {
 
         val pad = 10
         val size = 64
-        val sizeMul = (1f + (noise * 15f)).toInt()
+        val sizeAdd = (1f + (noise * 15f)).toInt()
         val rotation = (WaygetterUtils.random.nextDouble() * 20.0) * noise
-        val center = pad + (size + sizeMul) / 2.0
+        val centerWidth = ((clientWidth - pad - size) + sizeAdd).toDouble()
+        val centerHeight = pad + (size + sizeAdd) / 2.0
 
         graphics.pose().pushPose()
         RenderSystem.enableBlend()
-        graphics.pose().translate(center, center, 0.0)
+        graphics.pose().translate(centerWidth, centerHeight, 0.0)
         graphics.pose().mulPose(Axis.ZP.rotationDegrees(rotation.toFloat()))
-        graphics.pose().translate(-center, -center, 0.0)
+        graphics.pose().translate(-centerWidth, -centerHeight, 0.0)
         graphics.setColor(1f, 1f, 1f, noise)
         graphics.blit(
             rl("textures/gui/noise_icon.png"),
-            pad - (sizeMul / 2), pad - (sizeMul / 2),
-            size + sizeMul, size + sizeMul,
+            clientWidth - (pad * 2) - size - (sizeAdd / 2), pad - (sizeAdd / 2),
+            size + sizeAdd, size + sizeAdd,
             0f, 0f,
             size, size,
             size, size

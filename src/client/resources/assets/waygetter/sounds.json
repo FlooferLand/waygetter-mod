@@ -22,5 +22,6 @@
         ]
     },
     "flashlight_shake": { "sounds": ["waygetter:flashlight_shake"] },
-    "flashlight_shake_gold": { "sounds": ["waygetter:flashlight_shake_gold"] }
+    "flashlight_shake_gold": { "sounds": ["waygetter:flashlight_shake_gold"] },
+    "flashlight_die": { "sounds": ["waygetter:flashlight_die"] }
 }

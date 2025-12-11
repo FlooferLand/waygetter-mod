@@ -1,30 +1,32 @@
 package com.flooferland.waygetter.entities
 
 import net.minecraft.core.*
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.server.level.*
 import net.minecraft.sounds.SoundSource
 import net.minecraft.tags.GameEventTags
-import net.minecraft.world.entity.*
 import net.minecraft.world.entity.monster.*
-import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.*
 import net.minecraft.world.level.gameevent.*
-import net.minecraft.world.level.gameevent.vibrations.*
 import net.minecraft.world.level.pathfinder.PathType
+import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
 import com.flooferland.waygetter.entities.goals.MamaAttackGoal
 import com.flooferland.waygetter.entities.goals.MamaChaseGoal
+import com.flooferland.waygetter.items.FlashlightItem
 import com.flooferland.waygetter.items.MamaItem.Companion.REGISTER_CONTROLLERS
 import com.flooferland.waygetter.registry.ModEntities
 import com.flooferland.waygetter.registry.ModSounds
+import com.flooferland.waygetter.registry.ModSynchedData
 import com.flooferland.waygetter.systems.EntityLine
 import com.flooferland.waygetter.systems.EntitySight
 import com.flooferland.waygetter.systems.NoiseTracker
+import com.flooferland.waygetter.utils.Extensions.isProvokingMama
+import com.flooferland.waygetter.utils.playerMadeSound
 import java.util.function.BiConsumer
 import software.bernie.geckolib.animatable.GeoEntity
 import software.bernie.geckolib.animation.AnimatableManager
 import software.bernie.geckolib.util.GeckoLibUtil
-import kotlin.math.sqrt
 
 class MamaEntity(level: Level) : Monster(ModEntities.Mama.type, level), GeoEntity {
     val maxDist = 64.0
@@ -33,6 +35,8 @@ class MamaEntity(level: Level) : Monster(ModEntities.Mama.type, level), GeoEntit
     val line = EntityLine(this, maxDist)
     val sight = EntitySight(this, maxDist)
     val cache = GeckoLibUtil.createInstanceCache(this)!!
+
+    var victim: ServerPlayer? = null
 
     override fun getAnimatableInstanceCache() = cache
     override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
@@ -50,6 +54,12 @@ class MamaEntity(level: Level) : Monster(ModEntities.Mama.type, level), GeoEntit
 
     override fun getAmbientSound() = ModSounds.MamaTaunt.event
     override fun getSoundVolume() = 0.5f
+    override fun playAmbientSound() {
+        val victim = victim ?: return
+        if (victim.isProvokingMama()) {
+            super.playAmbientSound()
+        }
+    }
 
     init {
         setPathfindingMalus(PathType.UNPASSABLE_RAIL, 0.0f)
@@ -69,6 +79,33 @@ class MamaEntity(level: Level) : Monster(ModEntities.Mama.type, level), GeoEntit
         super.tick()
         val level = level() as? ServerLevel ?: return
 
+        // Killing the flashlight
+        victim?.let { victim ->
+            if (!victim.isProvokingMama()) return@let
+            if (!victim.isHolding { it.item is FlashlightItem }) return@let
+
+            val flashlightRange = 16.0
+            val victimLook = victim.lookAngle
+            val victimFrom = victim.eyePosition
+            val beamEnd = victimFrom.add(victimLook.scale(flashlightRange))
+            if (boundingBox.clip(victimFrom, beamEnd).isEmpty) return@let
+
+            val clip = level.clip(ClipContext(victimFrom, boundingBox.center, ClipContext.Block.VISUAL, ClipContext.Fluid.ANY, victim))
+            if (clip.type != HitResult.Type.MISS) return@let
+
+            if (victim.entityData.get(ModSynchedData.flashlightBattery) > 0f) {
+                victim.entityData.set(ModSynchedData.flashlightBattery, 0f,  true)
+                playerMadeSound(level, victim, ModSounds.FlashlightDie)
+            }
+        }
+    }
+
+    override fun readAdditionalSaveData(compound: CompoundTag) {
+        super.readAdditionalSaveData(compound)
+    }
+
+    override fun addAdditionalSaveData(compound: CompoundTag) {
+        super.addAdditionalSaveData(compound)
     }
 
     override fun updateDynamicGameEventListener(consumer: BiConsumer<DynamicGameEventListener<*>?, ServerLevel?>) {
