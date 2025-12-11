@@ -74,7 +74,7 @@ object Extensions {
     //endregion
 
     /** Converts seconds to ticks */
-    fun Int.ticks(): Int = this * 20
+    fun Int.secsToTicks(): Int = this * 20
 
     //region Compound get functions, since these change for 1.21.5+
     fun CompoundTag.getBooleanOrNull(string: String): Boolean? =
