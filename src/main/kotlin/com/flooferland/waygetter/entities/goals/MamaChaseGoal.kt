@@ -7,6 +7,7 @@ import net.minecraft.world.entity.ai.goal.*
 import net.minecraft.world.phys.Vec3
 import com.flooferland.waygetter.entities.MamaEntity
 import com.flooferland.waygetter.registry.ModSounds
+import com.flooferland.waygetter.systems.NoiseTracker
 import com.flooferland.waygetter.utils.Extensions.isProvokingMama
 import com.flooferland.waygetter.utils.Extensions.secsToTicks
 import com.flooferland.waygetter.utils.WaygetterUtils
@@ -44,15 +45,17 @@ class MamaChaseGoal(val mama: MamaEntity) : Goal() {
     }
 
     override fun start() {
-        if (victim == null) {
-            val level = mama.level() as? ServerLevel ?: return
-            victim = level.players().first { player ->
+        val level = mama.level() as? ServerLevel ?: return
+        val victim = victim ?:
+            level.players().first { player ->
                 player.distanceToSqr(mama) < mama.maxDistSqrt
-                && player.isProvokingMama()
+                        && player.isProvokingMama()
             }
+        if (NoiseTracker.get(victim) > NoiseTracker.NOISE_MEDIUM) {
+            mama.navigation.moveTo(victim, 0.7)
         }
-        victim?.let { mama.navigation.moveTo(it, 0.7) }
         lastNavTick = initialCooldown
+        this.victim = victim
     }
 
     override fun stop() {
