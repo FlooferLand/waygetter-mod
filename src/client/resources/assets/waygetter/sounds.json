@@ -5,6 +5,8 @@
     "tattletail.bark.thats_me": {
         "sounds": ["waygetter:tattletail_bark_thats_me"]
     },
+    "mama.idle": { "sounds": "waygetter:mama_jumpscare" },
+    "mama.jumpscare": { "sounds": "waygetter:mama_jumpscare" },
     "mama.taunt": {
         "sounds": [
             "waygetter:mama_bark_come_to_mama",
@@ -23,5 +25,9 @@
     },
     "flashlight_shake": { "sounds": ["waygetter:flashlight_shake"] },
     "flashlight_shake_gold": { "sounds": ["waygetter:flashlight_shake_gold"] },
-    "flashlight_die": { "sounds": ["waygetter:flashlight_die"] }
+    "flashlight_die": { "sounds": ["waygetter:flashlight_die"] },
+    "alert_stinger": { "sounds": ["waygetter:alert_stinger"] },
+    "info_stinger": { "sounds": ["waygetter:info_stinger"] },
+    "egg_collect": { "sounds": ["waygetter:egg_collect"] },
+    "tension_loop": { "sounds": ["waygetter:tension_loop"] }
 }

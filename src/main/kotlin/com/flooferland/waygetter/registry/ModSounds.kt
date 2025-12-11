@@ -9,10 +9,16 @@ import com.flooferland.waygetter.utils.rl
 enum class ModSounds {
     TattleBarkMeTattletail("tattletail.bark.me_tattletail"),
     TattleBarkThatsMe("tattletail.bark.thats_me"),
+    MamaIdle("mama.idle"),
+    MamaJumpscare("mama.jumpscare"),
     MamaTaunt("mama.taunt"),
     NoiseBeep("noise_beep"),
     FlashlightShake("flashlight_shake"),
-    FlashlightDie("flashlight_die")
+    FlashlightDie("flashlight_die"),
+    AlertStinger("alert_stinger"),
+    InfoStinger("info_stinger"),
+    EggCollect("egg_collect"),
+    TensionLoop("tension_loop")
     ;
 
     val id: ResourceLocation
