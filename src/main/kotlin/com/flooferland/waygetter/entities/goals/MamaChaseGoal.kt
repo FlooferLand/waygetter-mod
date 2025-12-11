@@ -24,7 +24,8 @@ class MamaChaseGoal(val mama: MamaEntity) : Goal() {
     var victimLastPos: Vec3? = null
 
     companion object {
-        const val TP_DIST_MIN: Double = 5.0
+        const val RESTRAINING_ORDER: Double = 8.0 // blocks
+        const val TP_DIST_MIN: Double = 6.0  // same as the restraining order but for teleports instead of walking
         const val TP_DIST_MAX: Double = 15.0
         const val TP_MAX_ATTEMPTS: Int = 30
         const val TP_Y_TOLERANCE: Int = 5
@@ -35,8 +36,9 @@ class MamaChaseGoal(val mama: MamaEntity) : Goal() {
     override fun canUse(): Boolean {
         if (mama.sight.seenByAnyone()) return false
         val level = mama.level() as? ServerLevel ?: return false
+        victim?.let { if (it.distanceTo(mama) <= RESTRAINING_ORDER) return false }
         return level.players().any { player ->
-            player.distanceToSqr(mama) < mama.maxDist * mama.maxDist
+            player.distanceToSqr(mama) < mama.maxDistSqrt
             && player.isProvokingMama()
         }
     }
@@ -45,11 +47,11 @@ class MamaChaseGoal(val mama: MamaEntity) : Goal() {
         if (victim == null) {
             val level = mama.level() as? ServerLevel ?: return
             victim = level.players().first { player ->
-                player.distanceToSqr(mama) < mama.maxDist * mama.maxDist
+                player.distanceToSqr(mama) < mama.maxDistSqrt
                 && player.isProvokingMama()
             }
         }
-        victim?.let { mama.navigation.moveTo(it, 1.0) }
+        victim?.let { mama.navigation.moveTo(it, 0.7) }
         lastNavTick = initialCooldown
     }
 

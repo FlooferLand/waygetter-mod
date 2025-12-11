@@ -24,9 +24,11 @@ import java.util.function.BiConsumer
 import software.bernie.geckolib.animatable.GeoEntity
 import software.bernie.geckolib.animation.AnimatableManager
 import software.bernie.geckolib.util.GeckoLibUtil
+import kotlin.math.sqrt
 
 class MamaEntity(level: Level) : Monster(ModEntities.Mama.type, level), GeoEntity {
     val maxDist = 64.0
+    val maxDistSqrt = maxDist * maxDist
     val attackLine = EntityLine(this, 2.5)
     val line = EntityLine(this, maxDist)
     val sight = EntitySight(this, maxDist)
