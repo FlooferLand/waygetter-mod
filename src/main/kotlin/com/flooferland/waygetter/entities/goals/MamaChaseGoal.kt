@@ -34,8 +34,8 @@ class MamaChaseGoal(val mama: MamaEntity) : Goal() {
     }
 
     override fun canUse(): Boolean {
-        if (mama.sight.seenByAnyone()) return false
         val level = mama.level() as? ServerLevel ?: return false
+        if (mama.sight.seenByAnyone()) return false
         mama.victim?.let { if (it.distanceTo(mama) <= RESTRAINING_ORDER) return false }
         return level.players().any { player ->
             player.distanceToSqr(mama) < mama.maxDistSqrt
@@ -44,24 +44,15 @@ class MamaChaseGoal(val mama: MamaEntity) : Goal() {
     }
 
     override fun start() {
-        val level = mama.level() as? ServerLevel ?: return
-        val victim = mama.victim ?:
-            level.players().first { player ->
-                player.distanceToSqr(mama) < mama.maxDistSqrt
-                        && player.isProvokingMama()
-            }
+        val victim = mama.victim ?: return
         if (NoiseTracker.get(victim) > NoiseTracker.NOISE_MEDIUM) {
             mama.navigation.moveTo(victim, 0.7)
         }
         lastNavTick = initialCooldown
-        mama.victim = victim
     }
 
     override fun stop() {
         mama.navigation.stop()
-        if (mama.victim?.isProvokingMama() != true) {
-            mama.victim = null
-        }
     }
 
     override fun tick() {
