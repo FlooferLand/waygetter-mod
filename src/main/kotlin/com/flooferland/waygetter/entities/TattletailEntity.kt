@@ -24,7 +24,7 @@ import software.bernie.geckolib.animation.AnimatableManager
 import software.bernie.geckolib.util.GeckoLibUtil
 import kotlin.jvm.optionals.getOrNull
 
-class TattletailEntity(override val level: Level) : Entity(ModEntities.Tattletail.type, level), GeoEntity, ITattleInstance {
+class TattletailEntity(level: Level) : Entity(ModEntities.Tattletail.type, level), GeoEntity, ITattleInstance {
     val cache = GeckoLibUtil.createInstanceCache(this)!!
     override fun getAnimatableInstanceCache() = cache
     override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
@@ -56,10 +56,11 @@ class TattletailEntity(override val level: Level) : Entity(ModEntities.Tattletai
     //region ITattleInstance
     override var state = TattleState()
     override val manager = TattleManager(this)
-    override val pos: BlockPos = blockPosition()
+    override fun getLevel() = level()!!
+    override fun getPos() = blockPosition()!!
     override fun tick() {
         super.tick()
-        if (!level.isClientSide) {
+        if (!level().isClientSide) {
             manager.tick()
         }
     }

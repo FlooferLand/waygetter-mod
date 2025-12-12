@@ -19,6 +19,6 @@ class TattleItemStackInstance(val stack: ItemStack, val player: ServerPlayer) : 
         set(value) {
             stack.set(ModComponents.TattleStateData.type, TattleStateDataComponent(value))
         }
-    override val level: Level = player.level()
-    override val pos: BlockPos = player.blockPosition()
+    override fun getLevel() = player.level()!!
+    override fun getPos() = player.blockPosition()!!
 }

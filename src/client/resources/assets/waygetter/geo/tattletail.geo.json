@@ -742,7 +742,12 @@
 				{
 					"name": "eyelids",
 					"parent": "eyearea",
-					"pivot": [-1.05, 7.725, -2.3],
+					"pivot": [-1.05, 7.725, -2.3]
+				},
+				{
+					"name": "righteyelid",
+					"parent": "eyelids",
+					"pivot": [-1.025, 9.1, -2.3],
 					"cubes": [
 						{
 							"origin": [-1.8, 8.825, -3.3],
@@ -750,7 +755,14 @@
 							"uv": {
 								"north": {"uv": [5.33333, 0], "uv_size": [2.66667, 2.66667]}
 							}
-						},
+						}
+					]
+				},
+				{
+					"name": "lefteyelid",
+					"parent": "eyelids",
+					"pivot": [1.025, 9.1, -2.3],
+					"cubes": [
 						{
 							"origin": [0.25, 8.825, -3.3],
 							"size": [1.55, 0.55, 2],

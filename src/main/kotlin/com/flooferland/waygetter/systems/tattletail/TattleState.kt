@@ -13,7 +13,6 @@ data class TattleState(
     var nextYapTime: Int = 0,
     var scared: Boolean = false,
     var currentAnim: String = "",
-    var lastAnim: String = ""
 ) {
     companion object {
         val CODEC: Codec<TattleState> = RecordCodecBuilder.create { instance ->
@@ -22,9 +21,8 @@ data class TattleState(
                 Codec.INT.optionalFieldOf("nextYapTime", 0).forGetter { it.nextYapTime },
                 Codec.BOOL.optionalFieldOf("scared", false).forGetter { it.scared },
                 Codec.STRING.optionalFieldOf("currentAnim", "").forGetter { it.currentAnim },
-                Codec.STRING.optionalFieldOf("lastAnim", "").forGetter { it.lastAnim },
-            ).apply(instance) { timeIdle, nextYapTime, scared, currentAnim, lastAnim ->
-                TattleState(timeIdle, nextYapTime, scared, currentAnim, lastAnim)
+            ).apply(instance) { timeIdle, nextYapTime, scared, currentAnim ->
+                TattleState(timeIdle, nextYapTime, scared, currentAnim)
             }
         }
         fun load(tag: CompoundTag) = runCatching { CODEC.decode(NbtOps.INSTANCE, tag).orThrow }.getOrNull()?.first

@@ -9,6 +9,8 @@ import com.flooferland.waygetter.utils.rl
 enum class ModSounds {
     TattleBarkMeTattletail("tattletail.bark.me_tattletail"),
     TattleBarkThatsMe("tattletail.bark.thats_me"),
+    TattleBarkItsDark("tattletail.bark.its_dark"),
+    TattleBarkAhh("tattletail.bark.ahh"),
     MamaIdle("mama.idle"),
     MamaJumpscare("mama.jumpscare"),
     MamaTaunt("mama.taunt"),

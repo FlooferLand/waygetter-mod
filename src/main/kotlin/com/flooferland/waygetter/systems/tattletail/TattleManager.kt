@@ -8,11 +8,14 @@ import net.minecraft.world.level.*
 import net.minecraft.world.phys.HitResult
 import com.flooferland.waygetter.components.TattleStateDataComponent
 import com.flooferland.waygetter.entities.TattletailEntity
+import com.flooferland.waygetter.items.FlashlightItem
 import com.flooferland.waygetter.items.TattletailItem
 import com.flooferland.waygetter.packets.TattleStatePacket
 import com.flooferland.waygetter.registry.ModComponents
 import com.flooferland.waygetter.registry.ModSounds
+import com.flooferland.waygetter.registry.ModSynchedData
 import com.flooferland.waygetter.systems.NoiseTracker
+import com.flooferland.waygetter.utils.Extensions.secsToTicks
 import com.flooferland.waygetter.utils.WaygetterUtils
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
@@ -40,22 +43,21 @@ class TattleManager(val instance: ITattleInstance) {
 
     fun tick() {
         val state = instance.state
-        val level = instance.level as? ServerLevel ?: return
-        val lightLevel = level.getBrightness(LightLayer.BLOCK, instance.pos)
+        val level = instance.getLevel() as? ServerLevel ?: return
+
+        // Not ticking if not necessary
+        val canYap = run {
+            val owner = getOwner() ?: return@run false
+            val nearestPlayer = level.getNearestPlayer(owner, 10.0) ?: return@run false
+            val clip = level.clip(ClipContext(owner.eyePosition, nearestPlayer.eyePosition, ClipContext.Block.VISUAL, ClipContext.Fluid.ANY, owner))
+            clip.type == HitResult.Type.MISS || instance is TattleItemStackInstance
+        }
 
         // Adjusting state
         state.timeIdle++
         if (state.timeIdle > state.nextYapTime) {
             state.timeIdle = 0
-            state.nextYapTime = (20 * 3) + (20 * WaygetterUtils.random.nextIntBetweenInclusive(5, 20))
-            run {
-                val owner = getOwner() ?: return@run
-                val nearestPlayer = level.getNearestPlayer(owner, 10.0) ?: return@run
-                val clip = level.clip(ClipContext(owner.eyePosition, nearestPlayer.eyePosition, ClipContext.Block.VISUAL, ClipContext.Fluid.ANY, owner))
-                if (clip.type == HitResult.Type.MISS) {
-                    playRandomIdle()
-                }
-            }
+            if (canYap) yap(level, state)
         }
         instance.state = state
 
@@ -63,6 +65,28 @@ class TattleManager(val instance: ITattleInstance) {
         val owner = getOwner()
         if (state.timeIdle < 20 * 2.2f && owner is ServerPlayer) {
             NoiseTracker.add(owner, NoiseTracker.NOISE_MEDIUM)
+        }
+    }
+
+    fun yap(level: ServerLevel, state: TattleState) {
+        val tooDark = (level.getBrightness(LightLayer.BLOCK, instance.getPos()) < 6)
+                && ((instance as? TattleItemStackInstance)?.player?.let { it.entityData.get(ModSynchedData.flashlightBattery) < 0.1f || !it.isHolding { it.item is FlashlightItem } } ?: false)
+
+        if (tooDark) {
+            if (!state.scared) {
+                state.nextYapTime = 3.secsToTicks()
+                playAnim("its_dark")
+                state.scared = true
+            } else {
+                state.nextYapTime = 2.secsToTicks()
+                playAnim("ahh")
+            }
+        } else if (state.scared) {
+            state.scared = false
+            state.nextYapTime = 5.secsToTicks() + WaygetterUtils.random.nextIntBetweenInclusive(1, 3).secsToTicks()
+        } else {
+            state.nextYapTime = 3.secsToTicks() + WaygetterUtils.random.nextIntBetweenInclusive(5, 20).secsToTicks()
+            playRandomIdle()
         }
     }
 
@@ -74,15 +98,15 @@ class TattleManager(val instance: ITattleInstance) {
 
     fun playRandomIdle() {
         val anims = arrayOf(
-            Pair("me_tattletail", ModSounds.TattleBarkMeTattletail),
-            Pair("thats_me", ModSounds.TattleBarkThatsMe)
+            "me_tattletail",
+            "thats_me"
         )
         val anim = anims.randomOrNull() ?: return
-        playAnim(anim.first)
+        playAnim(anim)
     }
 
     fun playAnim(name: String) {
-        for (player in instance.level.players()) {
+        for (player in instance.getLevel().players()) {
             if (player !is ServerPlayer) continue
             val owner = getOwner()?.uuid ?: continue
             ServerPlayNetworking.send(player, TattleStatePacket(owner = owner, playAnim = name))

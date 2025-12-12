@@ -11,7 +11,7 @@
 	"variable_placeholder_buttons": [],
 	"timeline_setups": [],
 	"unhandled_root_fields": {},
-	"activity_tracker": 10087,
+	"activity_tracker": 10484,
 	"geckolib_modid": "waygetter",
 	"geckolib_filepath_cache": {
 		"model": "E:\\Minecraft Mods\\waygetter\\src\\client\\resources\\assets\\waygetter\\geo\\tattletail.geo.json",
@@ -759,7 +759,7 @@
 			"to": [1.8, 9.375, -1.3],
 			"autouv": 0,
 			"color": 4,
-			"origin": [1.025, 9.225, -2.3],
+			"origin": [1.025, 9.1, -2.3],
 			"faces": {
 				"north": {
 					"uv": [5.33333, 0, 8, 2.66667],
@@ -799,7 +799,7 @@
 			"to": [-0.25, 9.375, -1.3],
 			"autouv": 0,
 			"color": 4,
-			"origin": [-1.025, 9.225, -2.3],
+			"origin": [-1.025, 9.1, -2.3],
 			"faces": {
 				"north": {
 					"uv": [8, 0, 5.33333, 2.66667],
@@ -4053,7 +4053,7 @@
 			"visibility": true,
 			"autouv": 0,
 			"isOpen": true,
-			"primary_selected": true
+			"primary_selected": false
 		},
 		{
 			"uuid": "f7cfbf8f-5e15-e8dc-f010-19ac96ab4b38",
@@ -4124,7 +4124,7 @@
 			"selected": false,
 			"visibility": true,
 			"autouv": 0,
-			"isOpen": false,
+			"isOpen": true,
 			"primary_selected": false
 		},
 		{
@@ -4324,6 +4324,42 @@
 			"autouv": 0,
 			"isOpen": false,
 			"primary_selected": false
+		},
+		{
+			"uuid": "a9bbfcca-4d0c-747a-0143-34533ce72890",
+			"export": true,
+			"locked": false,
+			"origin": [-1.025, 9.1, -2.3],
+			"rotation": [0, 0, 0],
+			"color": 0,
+			"name": "lefteyelid",
+			"children": [],
+			"reset": false,
+			"shade": true,
+			"mirror_uv": false,
+			"selected": false,
+			"visibility": true,
+			"autouv": 0,
+			"isOpen": true,
+			"primary_selected": false
+		},
+		{
+			"uuid": "c6b8ab3e-5636-297a-f1c0-d50cdea1fe04",
+			"export": true,
+			"locked": false,
+			"origin": [1.025, 9.1, -2.3],
+			"rotation": [0, 0, 0],
+			"color": 0,
+			"name": "righteyelid",
+			"children": [],
+			"reset": false,
+			"shade": true,
+			"mirror_uv": false,
+			"selected": false,
+			"visibility": true,
+			"autouv": 0,
+			"isOpen": true,
+			"primary_selected": false
 		}
 	],
 	"outliner": [
@@ -4408,8 +4444,19 @@
 								"bad9c4d6-9bea-a265-dfc5-80995ecc1a07",
 								{
 									"uuid": "c0ae4e37-93b2-b545-434f-186765451eb9",
-									"isOpen": false,
-									"children": ["3c888ef1-01d1-1b3d-e0cb-d98142091675", "dfc08263-0504-af0d-45b6-22d77197d634"]
+									"isOpen": true,
+									"children": [
+										{
+											"uuid": "c6b8ab3e-5636-297a-f1c0-d50cdea1fe04",
+											"isOpen": true,
+											"children": ["3c888ef1-01d1-1b3d-e0cb-d98142091675"]
+										},
+										{
+											"uuid": "a9bbfcca-4d0c-747a-0143-34533ce72890",
+											"isOpen": true,
+											"children": ["dfc08263-0504-af0d-45b6-22d77197d634"]
+										}
+									]
 								},
 								{
 									"uuid": "3e0baf92-4654-dcaa-f980-72138a4fd549",
@@ -5440,6 +5487,18 @@
 							"interpolation": "linear"
 						}
 					]
+				},
+				"a9bbfcca-4d0c-747a-0143-34533ce72890": {
+					"name": "lefteyelid",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"c6b8ab3e-5636-297a-f1c0-d50cdea1fe04": {
+					"name": "righteyelid",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
 				}
 			}
 		},
@@ -6335,6 +6394,812 @@
 							],
 							"uuid": "d3cdd8ea-59bc-7689-6c31-0d01d3296f7d",
 							"time": 0,
+							"color": -1,
+							"interpolation": "linear"
+						}
+					]
+				}
+			}
+		},
+		{
+			"uuid": "07c06935-ce26-7c71-8839-dc0900ccd4f2",
+			"name": "animation.tattletail.ahh",
+			"loop": "once",
+			"override": false,
+			"length": 1,
+			"snapping": 24,
+			"selected": false,
+			"saved": true,
+			"path": "../assets/waygetter/animations/tattletail.animation.json",
+			"anim_time_update": "",
+			"blend_weight": "",
+			"start_delay": "",
+			"loop_delay": "",
+			"animators": {
+				"8683384b-6247-6bdc-d6fb-6ca7ebc8207f": {
+					"name": "root",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"f7cfbf8f-5e15-e8dc-f010-19ac96ab4b38": {
+					"name": "face",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"c9081154-74f2-9d7c-92ba-a00a49154b0e": {
+					"name": "hair",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"6fdc105d-593c-a7d7-39db-a68b62514e80": {
+					"name": "eyearea",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"c0ae4e37-93b2-b545-434f-186765451eb9": {
+					"name": "eyelids",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false,
+					"keyframes": [
+						{
+							"channel": "position",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "3b99abb9-432d-c0a6-539c-44afee8f8ffc",
+							"time": 0,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "position",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0.075",
+									"z": "0"
+								}
+							],
+							"uuid": "a5472935-edd5-0d83-8ec5-20b9a65b9535",
+							"time": 0.125,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "position",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "cf1301d6-3f26-503f-be7e-bc3c2f0653dc",
+							"time": 1,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "position",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0.075",
+									"z": "0"
+								}
+							],
+							"uuid": "935517a4-f8da-c764-e4a6-cfd500b1061e",
+							"time": 0.58333,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "position",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "149d8dbb-c094-4942-0b69-e7fc71434a98",
+							"time": 0.75,
+							"color": -1,
+							"interpolation": "linear"
+						}
+					]
+				},
+				"fdd936a6-9063-e28b-243e-56457ddd3025": {
+					"name": "snout",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"ca9c7590-195a-0522-b81b-7a6ea2d53566": {
+					"name": "jaw",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false,
+					"keyframes": [
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "7d523c18-9a46-056b-ab43-c68c2a24b247",
+							"time": 0,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "da57287c-b87e-ed21-5489-335773a27c02",
+							"time": 1,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "-12.5",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "cd66e551-06fa-3696-e9bd-2461955f913c",
+							"time": 0.16667,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "-12.5",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "2a6886dc-b8fb-b1a4-c70f-3ecf5884bb4a",
+							"time": 0.54167,
+							"color": -1,
+							"interpolation": "linear"
+						}
+					]
+				},
+				"cfb1a584-a614-52bb-f039-371e86111f53": {
+					"name": "feet",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"2bbb5ffe-2ad3-1503-0e04-c0715f2df3ce": {
+					"name": "tail",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"8292f588-69dc-9c16-5644-b1f3ad5d8b26": {
+					"name": "leftfoot",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"6400d836-439a-97ad-d4cb-84c212fc04e8": {
+					"name": "rightfoot",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"3e0baf92-4654-dcaa-f980-72138a4fd549": {
+					"name": "eyes",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"6cbf9af0-057a-ea94-e919-90d0347f1f9e": {
+					"name": "fur",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"df25bce9-3a8c-2bf9-0765-fdc7305cc8cb": {
+					"name": "ears",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"e063665e-04ec-ccc4-dcc5-26188e0ec6b5": {
+					"name": "rightear",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false,
+					"keyframes": [
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "748e7c68-755d-c918-ec5d-fdcaa9d80af1",
+							"time": 0,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "0db243ec-5e25-6360-b9a9-888afaf0a93f",
+							"time": 1,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "-15",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "56aa98e4-9415-e722-1082-954340ca834c",
+							"time": 0.25,
+							"color": -1,
+							"interpolation": "linear"
+						}
+					]
+				},
+				"7950b0e0-b304-8f0c-ebb0-154af9fa98eb": {
+					"name": "leftear",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false,
+					"keyframes": [
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "152e5585-4773-853f-87a9-847037e0f704",
+							"time": 0,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "0088df45-a802-0121-4d79-94f81ac2b488",
+							"time": 1,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "-15",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "daa6a541-4382-8984-6216-d62b89945337",
+							"time": 0.25,
+							"color": -1,
+							"interpolation": "linear"
+						}
+					]
+				},
+				"a9bbfcca-4d0c-747a-0143-34533ce72890": {
+					"name": "lefteyelid",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"c6b8ab3e-5636-297a-f1c0-d50cdea1fe04": {
+					"name": "righteyelid",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				}
+			}
+		},
+		{
+			"uuid": "e46a871f-d616-bc63-0ae8-8077c6723e90",
+			"name": "animation.tattletail.its_dark",
+			"loop": "once",
+			"override": false,
+			"length": 1.25,
+			"snapping": 24,
+			"selected": true,
+			"saved": true,
+			"path": "../assets/waygetter/animations/tattletail.animation.json",
+			"anim_time_update": "",
+			"blend_weight": "",
+			"start_delay": "",
+			"loop_delay": "",
+			"animators": {
+				"8683384b-6247-6bdc-d6fb-6ca7ebc8207f": {
+					"name": "root",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"f7cfbf8f-5e15-e8dc-f010-19ac96ab4b38": {
+					"name": "face",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"c9081154-74f2-9d7c-92ba-a00a49154b0e": {
+					"name": "hair",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"6fdc105d-593c-a7d7-39db-a68b62514e80": {
+					"name": "eyearea",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"c0ae4e37-93b2-b545-434f-186765451eb9": {
+					"name": "eyelids",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"fdd936a6-9063-e28b-243e-56457ddd3025": {
+					"name": "snout",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"ca9c7590-195a-0522-b81b-7a6ea2d53566": {
+					"name": "jaw",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false,
+					"keyframes": [
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "b4612c39-78b3-90d0-d113-dd45b592c313",
+							"time": 0,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "-17.5",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "6c0be720-f73a-0dcc-28b6-ccdf55da5b50",
+							"time": 0.25,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "10",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "a4e38ac6-0153-3ed4-ab54-21b5a84a3016",
+							"time": 0.41667,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "10",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "fcc6cc03-2860-05bf-b610-86e139e5e0f6",
+							"time": 0.54167,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "-22.5",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "ea71952b-8c40-5f25-13d9-7ea039c01caa",
+							"time": 0.91667,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "3567b549-510b-c30c-e43b-88ccf4f98326",
+							"time": 1.25,
+							"color": -1,
+							"interpolation": "linear"
+						}
+					]
+				},
+				"cfb1a584-a614-52bb-f039-371e86111f53": {
+					"name": "feet",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"2bbb5ffe-2ad3-1503-0e04-c0715f2df3ce": {
+					"name": "tail",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"8292f588-69dc-9c16-5644-b1f3ad5d8b26": {
+					"name": "leftfoot",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"6400d836-439a-97ad-d4cb-84c212fc04e8": {
+					"name": "rightfoot",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"3e0baf92-4654-dcaa-f980-72138a4fd549": {
+					"name": "eyes",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"6cbf9af0-057a-ea94-e919-90d0347f1f9e": {
+					"name": "fur",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"df25bce9-3a8c-2bf9-0765-fdc7305cc8cb": {
+					"name": "ears",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false
+				},
+				"e063665e-04ec-ccc4-dcc5-26188e0ec6b5": {
+					"name": "rightear",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false,
+					"keyframes": [
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "e183665c-8444-c80c-368f-bcf1556c35bd",
+							"time": 0,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "5504271d-5627-b129-bcf0-3a74046ca282",
+							"time": 1.25,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "-15",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "a028e61c-55db-5a06-b946-a12a9ff3b0a3",
+							"time": 0.29167,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "-15",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "93e07d4e-8f34-aff0-d6c9-ce6ce23c50c2",
+							"time": 0.75,
+							"color": -1,
+							"interpolation": "linear"
+						}
+					]
+				},
+				"7950b0e0-b304-8f0c-ebb0-154af9fa98eb": {
+					"name": "leftear",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false,
+					"keyframes": [
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "7893c418-7a6f-f445-d2f6-4b6ed68a6a82",
+							"time": 0,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "1f75296a-a30d-0a2a-bf03-054bd3b0c9a4",
+							"time": 1.25,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "-15",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "46147d0e-a2dd-3af0-9b55-b5d3b3907c54",
+							"time": 0.16667,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "-15",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "d56eede4-22e4-c3d7-5682-9e10fa45e285",
+							"time": 0.875,
+							"color": -1,
+							"interpolation": "linear"
+						}
+					]
+				},
+				"effects": {
+					"name": "Effects",
+					"type": "effect",
+					"keyframes": [
+						{
+							"channel": "sound",
+							"data_points": [
+								{
+									"effect": "tattletail_bark_its_dark",
+									"locator": "",
+									"file": "E:\\Minecraft Mods\\waygetter\\src\\client\\resources\\assets\\waygetter\\sounds\\tattletail_bark_its_dark.ogg"
+								}
+							],
+							"uuid": "9687c94d-65d6-569d-fde8-87318c10c821",
+							"time": 0,
+							"color": -1,
+							"interpolation": "linear"
+						}
+					]
+				},
+				"c6b8ab3e-5636-297a-f1c0-d50cdea1fe04": {
+					"name": "righteyelid",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false,
+					"keyframes": [
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "8a7377d4-36df-b3ff-b12f-b7a8b011bee2",
+							"time": 0,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "fb1f98a1-599d-0b64-8673-e74a02d1c3c7",
+							"time": 1.25,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "-5"
+								}
+							],
+							"uuid": "4409912c-4f17-1fa0-530c-de96eb692ee5",
+							"time": 0.25,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "-5"
+								}
+							],
+							"uuid": "124f08f0-46b8-2927-3e69-0f1188842639",
+							"time": 1,
+							"color": -1,
+							"interpolation": "linear"
+						}
+					]
+				},
+				"a9bbfcca-4d0c-747a-0143-34533ce72890": {
+					"name": "lefteyelid",
+					"type": "bone",
+					"rotation_global": false,
+					"quaternion_interpolation": false,
+					"keyframes": [
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "5e13b1c7-e0d5-5433-d756-62200a0b8415",
+							"time": 0,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "0"
+								}
+							],
+							"uuid": "6f3d21fb-4a92-ff14-863f-cf849bc0e215",
+							"time": 1.25,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "5"
+								}
+							],
+							"uuid": "5e61ae92-2ce6-f992-7517-9cadb306ae81",
+							"time": 0.25,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "rotation",
+							"data_points": [
+								{
+									"x": "0",
+									"y": "0",
+									"z": "5"
+								}
+							],
+							"uuid": "f088ab6b-6cd5-5364-b378-588c96cc3d3e",
+							"time": 1,
 							"color": -1,
 							"interpolation": "linear"
 						}

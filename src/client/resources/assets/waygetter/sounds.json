@@ -1,12 +1,19 @@
 {
-    "tattletail.bark.me_tattletail": {
-        "sounds": ["waygetter:tattletail_bark_me_tattletail"]
+    "tattletail.bark.me_tattletail": { "sounds": ["waygetter:tattletail_bark_me_tattletail"] },
+    "tattletail.bark.thats_me": { "sounds": ["waygetter:tattletail_bark_thats_me"] },
+    "tattletail.bark.its_dark": { "sounds": ["waygetter:tattletail_bark_its_dark"] },
+    "tattletail.bark.ahh": {
+        "sounds": [
+            "waygetter:tattletail_bark_ahh_01",
+            "waygetter:tattletail_bark_ahh_02",
+            "waygetter:tattletail_bark_ahh_03",
+            "waygetter:tattletail_bark_ahh_04",
+            "waygetter:tattletail_bark_ahh_05",
+            "waygetter:tattletail_bark_ahh_06"
+        ]
     },
-    "tattletail.bark.thats_me": {
-        "sounds": ["waygetter:tattletail_bark_thats_me"]
-    },
-    "mama.idle": { "sounds": "waygetter:mama_jumpscare" },
-    "mama.jumpscare": { "sounds": "waygetter:mama_jumpscare" },
+    "mama.idle": { "sounds": ["waygetter:mama_jumpscare"] },
+    "mama.jumpscare": { "sounds": ["waygetter:mama_jumpscare"] },
     "mama.taunt": {
         "sounds": [
             "waygetter:mama_bark_come_to_mama",

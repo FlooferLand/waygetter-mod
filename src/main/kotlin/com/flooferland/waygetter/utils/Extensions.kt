@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.entity.*
 import com.flooferland.waygetter.items.FlashlightItem
 import com.flooferland.waygetter.items.TattletailItem
 import java.util.UUID
+import kotlin.math.roundToInt
 
 @Suppress("unused")
 object Extensions {
@@ -75,6 +76,7 @@ object Extensions {
 
     /** Converts seconds to ticks */
     fun Int.secsToTicks(): Int = this * 20
+    fun Double.secsToTicks(): Int = (this * 20).roundToInt()
 
     //region Compound get functions, since these change for 1.21.5+
     fun CompoundTag.getBooleanOrNull(string: String): Boolean? =
