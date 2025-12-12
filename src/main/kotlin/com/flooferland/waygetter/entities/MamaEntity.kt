@@ -79,6 +79,17 @@ class MamaEntity(level: Level) : Monster(ModEntities.Mama.type, level), GeoEntit
         super.tick()
         val level = level() as? ServerLevel ?: return
 
+        // Setting the victim
+        if (victim?.isProvokingMama() ?: false) {
+            victim = null
+        }
+        val victim = victim ?:
+            level.players().first { player ->
+                player.distanceToSqr(this) < maxDistSqrt
+                    && player.isProvokingMama()
+            }
+        this.victim = victim
+
         // Killing the flashlight
         victim?.let { victim ->
             if (!victim.isProvokingMama()) return@let
