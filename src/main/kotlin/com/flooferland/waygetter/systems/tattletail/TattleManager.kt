@@ -69,8 +69,12 @@ class TattleManager(val instance: ITattleInstance) {
     }
 
     fun yap(level: ServerLevel, state: TattleState) {
-        val tooDark = (level.getBrightness(LightLayer.BLOCK, instance.getPos()) < 6)
-                && ((instance as? TattleItemStackInstance)?.player?.let { it.entityData.get(ModSynchedData.flashlightBattery) < 0.1f || !it.isHolding { it.item is FlashlightItem } } ?: false)
+        val light = level.getBrightness(LightLayer.SKY, instance.getPos()) + level.getBrightness(LightLayer.BLOCK, instance.getPos())
+        println(light)
+        val tooDark = (light < 15)
+                && ((instance as? TattleItemStackInstance)?.player?.let { player ->
+                    player.entityData.get(ModSynchedData.flashlightBattery) < 0.1f || !player.isHolding { it.item is FlashlightItem }
+                } ?: true)
 
         if (tooDark) {
             if (!state.scared) {
