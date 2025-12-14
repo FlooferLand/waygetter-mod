@@ -1,6 +1,7 @@
 package com.flooferland.waygetter.systems.tattletail
 
 import net.minecraft.core.BlockPos
+import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.*
@@ -21,6 +22,7 @@ import com.flooferland.waygetter.utils.Extensions.secsToTicks
 import com.flooferland.waygetter.utils.WaygetterUtils
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
+import kotlin.math.absoluteValue
 
 class TattleManager(val instance: ITattleInstance) {
     companion object {
@@ -41,11 +43,13 @@ class TattleManager(val instance: ITattleInstance) {
         }
 
         fun getTooDark(level: Level, pos: BlockPos, player: Player?): Boolean {
-            val light = level.getBrightness(LightLayer.SKY, pos) + level.getBrightness(LightLayer.BLOCK, pos)
-            val tooDark = (light < 18)
-                    && (player?.let { player ->
+            val skyLight = level.getBrightness(LightLayer.SKY, pos)
+            val blockLight = level.getBrightness(LightLayer.BLOCK, pos)
+            val light = ((skyLight + blockLight) + if (level.dayTime in 13000..23000) -15 else 0).absoluteValue
+            val tooDark = (light < 12) && (player?.let { player ->
                 player.entityData.get(ModSynchedData.flashlightBattery) < 0.1f || !player.isHolding { it.item is FlashlightItem }
             } ?: true)
+            player?.displayClientMessage(Component.literal("Light = $light (TooDark=$tooDark)"), true)
             return tooDark
         }
     }

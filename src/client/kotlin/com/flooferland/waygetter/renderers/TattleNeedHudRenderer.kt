@@ -100,7 +100,7 @@ object TattleNeedHudRenderer {
                 graphics.drawString(
                     font, text,
                     x, y + (i * fontHeight),
-                    FastColor.ARGB32.color(30, 255, 255, 255),
+                    FastColor.ARGB32.color(60, 255, 255, 255),
                     false
                 )
             }
