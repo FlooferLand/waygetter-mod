@@ -49,7 +49,6 @@ class TattleManager(val instance: ITattleInstance) {
             val tooDark = (light < 12) && (player?.let { player ->
                 player.entityData.get(ModSynchedData.flashlightBattery) < 0.1f || !player.isHolding { it.item is FlashlightItem }
             } ?: true)
-            player?.displayClientMessage(Component.literal("Light = $light (TooDark=$tooDark)"), true)
             return tooDark
         }
     }
