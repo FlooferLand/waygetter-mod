@@ -1,8 +1,10 @@
 package com.flooferland.waygetter.systems.tattletail
 
+import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.*
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.*
 import net.minecraft.world.level.*
 import net.minecraft.world.phys.HitResult
@@ -37,6 +39,15 @@ class TattleManager(val instance: ITattleInstance) {
                 }
             }
         }
+
+        fun getTooDark(level: Level, pos: BlockPos, player: Player?): Boolean {
+            val light = level.getBrightness(LightLayer.SKY, pos) + level.getBrightness(LightLayer.BLOCK, pos)
+            val tooDark = (light < 18)
+                    && (player?.let { player ->
+                player.entityData.get(ModSynchedData.flashlightBattery) < 0.1f || !player.isHolding { it.item is FlashlightItem }
+            } ?: true)
+            return tooDark
+        }
     }
 
     // TODO: Fix client/server BS, send animation to the client when playAnim is called
@@ -69,12 +80,7 @@ class TattleManager(val instance: ITattleInstance) {
     }
 
     fun yap(level: ServerLevel, state: TattleState) {
-        val light = level.getBrightness(LightLayer.SKY, instance.getPos()) + level.getBrightness(LightLayer.BLOCK, instance.getPos())
-        val tooDark = (light < 15)
-                && ((instance as? TattleItemStackInstance)?.player?.let { player ->
-                    player.entityData.get(ModSynchedData.flashlightBattery) < 0.1f || !player.isHolding { it.item is FlashlightItem }
-                } ?: true)
-
+        val tooDark = getTooDark(level, instance.getPos(), (instance as? TattleItemStackInstance)?.player)
         if (tooDark) {
             if (!state.scared) {
                 state.nextYapTime = 3.secsToTicks()

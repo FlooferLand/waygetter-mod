@@ -8,8 +8,8 @@ import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry
 
 object ModPackets {
     fun registerS2C() {
-        PayloadTypeRegistry.playS2C().register(TattleStatePacket.type, TattleStatePacket.codec)
         PayloadTypeRegistry.playS2C().register(DisplayNoisePacket.type, DisplayNoisePacket.codec)
+        PayloadTypeRegistry.playS2C().register(TattleStatePacket.type, TattleStatePacket.codec)
     }
 
     @Environment(EnvType.CLIENT)

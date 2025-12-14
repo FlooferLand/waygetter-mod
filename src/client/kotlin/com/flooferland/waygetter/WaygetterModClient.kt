@@ -1,8 +1,9 @@
 package com.flooferland.waygetter
 
+import net.minecraft.world.InteractionHand
 import net.minecraft.world.entity.player.Player
+import com.flooferland.waygetter.components.TattleNeedsDataComponent
 import com.flooferland.waygetter.components.TattleStateDataComponent
-import com.flooferland.waygetter.entities.MamaEntity
 import com.flooferland.waygetter.entities.TattletailEntity
 import com.flooferland.waygetter.items.FlashlightClient
 import com.flooferland.waygetter.items.FlashlightItem
@@ -20,6 +21,7 @@ import com.flooferland.waygetter.registry.ModPackets
 import com.flooferland.waygetter.renderers.FlashlightRenderer
 import com.flooferland.waygetter.renderers.MamaEntityRenderer
 import com.flooferland.waygetter.renderers.NoiseHudRenderer
+import com.flooferland.waygetter.renderers.TattleNeedHudRenderer
 import com.flooferland.waygetter.systems.FlashlightLightManager
 import com.flooferland.waygetter.systems.NoiseTrackerClient
 import com.flooferland.waygetter.systems.tattletail.TattleState
@@ -27,8 +29,6 @@ import com.flooferland.waygetter.utils.Extensions.getHeldItem
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry
 import software.bernie.geckolib.animatable.client.GeoRenderProvider
-import software.bernie.geckolib.animation.AnimationController
-import software.bernie.geckolib.animation.PlayState
 import software.bernie.geckolib.renderer.GeoEntityRenderer
 import software.bernie.geckolib.renderer.GeoItemRenderer
 
@@ -38,6 +38,7 @@ object WaygetterModClient {
             ModPackets.registerC2S()
             NoiseTrackerClient.init()
             NoiseHudRenderer.init()
+            TattleNeedHudRenderer.init()
             FlashlightLightManager.init()
         }
 

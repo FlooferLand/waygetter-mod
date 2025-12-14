@@ -2,6 +2,7 @@ package com.flooferland.waygetter.renderers
 
 import net.minecraft.client.*
 import net.minecraft.client.gui.*
+import net.minecraft.client.gui.screens.ChatScreen
 import com.flooferland.waygetter.systems.NoiseTrackerClient
 import com.flooferland.waygetter.utils.Extensions.canMakeSound
 import com.flooferland.waygetter.utils.WaygetterUtils
@@ -17,14 +18,13 @@ object NoiseHudRenderer {
         HudRenderCallback.EVENT.register { graphics, delta ->
             val client = Minecraft.getInstance()
             val player = client.player ?: return@register
-            if (client.screen != null) return@register
             if (!player.canMakeSound()) return@register
 
             render(graphics, graphics.guiWidth(), graphics.guiHeight())
         }
     }
 
-    fun render(graphics: GuiGraphics, clientWidth: Int, clientHeight: Int) {
+    private fun render(graphics: GuiGraphics, clientWidth: Int, clientHeight: Int) {
         val noise = NoiseTrackerClient.localPlayerNoise
         if (noise <= 0) return
 
@@ -50,7 +50,7 @@ object NoiseHudRenderer {
             size, size
         )
         graphics.setColor(1f, 1f, 1f, 1f)
-        RenderSystem.defaultBlendFunc()
+        RenderSystem.disableBlend()
         graphics.pose().popPose()
     }
 }

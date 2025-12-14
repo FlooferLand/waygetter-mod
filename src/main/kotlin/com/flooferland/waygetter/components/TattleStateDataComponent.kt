@@ -1,6 +1,5 @@
 package com.flooferland.waygetter.components
 
-import net.minecraft.network.codec.StreamCodec
 import com.flooferland.waygetter.systems.tattletail.TattleState
 import com.mojang.serialization.Codec
 
