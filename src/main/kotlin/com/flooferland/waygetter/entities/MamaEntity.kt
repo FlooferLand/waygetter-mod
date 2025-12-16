@@ -24,6 +24,8 @@ import com.flooferland.waygetter.systems.EntityLine
 import com.flooferland.waygetter.systems.EntitySight
 import com.flooferland.waygetter.systems.NoiseTracker
 import com.flooferland.waygetter.utils.Extensions.isProvokingMama
+import com.flooferland.waygetter.utils.Extensions.secsToTicks
+import com.flooferland.waygetter.utils.WaygetterUtils
 import com.flooferland.waygetter.utils.playerMadeSound
 import java.util.function.BiConsumer
 import software.bernie.geckolib.animatable.GeoEntity
@@ -66,6 +68,7 @@ class MamaEntity(level: Level) : PathfinderMob(ModEntities.Mama.type, level), Ge
 
     override fun getAmbientSound() = ModSounds.MamaTaunt.event
     override fun getSoundVolume() = 0.5f
+    override fun getAmbientSoundInterval() = 8.secsToTicks()
     override fun playAmbientSound() {
         val victim = victim ?: return
         if (victim.isProvokingMama()) {
