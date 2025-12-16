@@ -1,13 +1,17 @@
 package com.flooferland.waygetter.systems.tattletail
 
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Holder
+import net.minecraft.network.protocol.game.ClientboundSoundPacket
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.*
 import net.minecraft.world.level.entity.EntityTypeTest
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.HitResult
+import net.minecraft.world.phys.Vec3
 import com.flooferland.waygetter.components.TattleNeedsDataComponent
 import com.flooferland.waygetter.components.TattleStateDataComponent
 import com.flooferland.waygetter.entities.MamaEntity
@@ -16,6 +20,7 @@ import com.flooferland.waygetter.items.FlashlightItem
 import com.flooferland.waygetter.packets.TattleStatePacket
 import com.flooferland.waygetter.registry.ModComponents
 import com.flooferland.waygetter.registry.ModEntities
+import com.flooferland.waygetter.registry.ModSounds
 import com.flooferland.waygetter.registry.ModSynchedData
 import com.flooferland.waygetter.systems.NoiseTracker
 import com.flooferland.waygetter.utils.Extensions.lookAt
@@ -93,6 +98,19 @@ class TattleManager(val instance: ITattleInstance) {
         if (state.timeIdle > state.nextYapTime) {
             state.timeIdle = 0
             if (canYap) yap(level, state, needs)
+        } else if (state.timeIdle > state.nextYapTime * WaygetterUtils.random.nextFloat().coerceAtLeast(0.6f) && WaygetterUtils.random.nextIntBetweenInclusive(0, 5) == 2) {
+            val lookDir = when {
+                WaygetterUtils.random.nextIntBetweenInclusive(0, 2) == 1 -> WaygetterUtils.random.nextIntBetweenInclusive(-1, 1).toByte()
+                else -> 0
+            }
+            if (lookDir != state.lookDir) {
+                val owner = getOwner()
+                when (owner) {
+                    is ServerPlayer -> owner.playNotifySound(ModSounds.TattleServo.event, SoundSource.NEUTRAL, 1.0f, 1.0f)
+                    else if (owner != null) -> level.playSound(null, owner.x, owner.y, owner.z, ModSounds.TattleServo.event, SoundSource.NEUTRAL)
+                }
+            }
+            state.lookDir = lookDir
         }
         stack.set(ModComponents.TattleStateData.type, TattleStateDataComponent(state))
         stack.set(ModComponents.TattleNeedsData.type, TattleNeedsDataComponent(needs))

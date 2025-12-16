@@ -11,7 +11,7 @@
 	"variable_placeholder_buttons": [],
 	"timeline_setups": [],
 	"unhandled_root_fields": {},
-	"activity_tracker": 11921,
+	"activity_tracker": 11950,
 	"geckolib_modid": "waygetter",
 	"geckolib_filepath_cache": {
 		"model": "E:\\Minecraft Mods\\waygetter\\src\\client\\resources\\assets\\waygetter\\geo\\tattletail.geo.json",
@@ -4124,7 +4124,7 @@
 			"selected": false,
 			"visibility": true,
 			"autouv": 0,
-			"isOpen": true,
+			"isOpen": false,
 			"primary_selected": false
 		},
 		{
@@ -4251,7 +4251,7 @@
 			"visibility": true,
 			"autouv": 0,
 			"isOpen": true,
-			"primary_selected": false
+			"primary_selected": true
 		},
 		{
 			"uuid": "6cbf9af0-057a-ea94-e919-90d0347f1f9e",
@@ -4341,7 +4341,7 @@
 			"visibility": true,
 			"autouv": 0,
 			"isOpen": true,
-			"primary_selected": true
+			"primary_selected": false
 		},
 		{
 			"uuid": "c6b8ab3e-5636-297a-f1c0-d50cdea1fe04",
@@ -4444,7 +4444,7 @@
 								"bad9c4d6-9bea-a265-dfc5-80995ecc1a07",
 								{
 									"uuid": "c0ae4e37-93b2-b545-434f-186765451eb9",
-									"isOpen": true,
+									"isOpen": false,
 									"children": [
 										{
 											"uuid": "c6b8ab3e-5636-297a-f1c0-d50cdea1fe04",
@@ -9088,7 +9088,7 @@
 			"override": false,
 			"length": 2,
 			"snapping": 24,
-			"selected": true,
+			"selected": false,
 			"saved": false,
 			"path": "../assets/waygetter/animations/tattletail.animation.json",
 			"anim_time_update": "",

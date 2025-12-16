@@ -11,6 +11,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 data class TattleState(
     var timeIdle: Int = 0,
     var nextYapTime: Int = 0,
+    var lookDir: Byte = 0,
     var scared: Boolean = false,
     var tired: Boolean = false,
     var currentAnim: String = "",
@@ -20,11 +21,12 @@ data class TattleState(
             instance.group(
                 Codec.INT.optionalFieldOf("timeIdle", 0).forGetter { it.timeIdle },
                 Codec.INT.optionalFieldOf("nextYapTime", 0).forGetter { it.nextYapTime },
+                Codec.BYTE.optionalFieldOf("lookDir", 0).forGetter { it.lookDir },
                 Codec.BOOL.optionalFieldOf("scared", false).forGetter { it.scared },
                 Codec.BOOL.optionalFieldOf("tired", false).forGetter { it.scared },
                 Codec.STRING.optionalFieldOf("currentAnim", "").forGetter { it.currentAnim },
-            ).apply(instance) { timeIdle, nextYapTime, scared, tired, currentAnim ->
-                TattleState(timeIdle, nextYapTime, scared, tired, currentAnim)
+            ).apply(instance) { timeIdle, nextYapTime, lookDir, scared, tired, currentAnim ->
+                TattleState(timeIdle, nextYapTime, lookDir, scared, tired, currentAnim)
             }
         }
         fun load(tag: CompoundTag) = runCatching { CODEC.decode(NbtOps.INSTANCE, tag).orThrow }.getOrNull()?.first

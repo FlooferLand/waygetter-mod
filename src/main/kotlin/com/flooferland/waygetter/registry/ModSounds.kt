@@ -16,6 +16,7 @@ enum class ModSounds {
     TattleBarkNightNight("tattletail.bark.night_night"),
     TattleBarkThatsMe("tattletail.bark.thats_me"),
     TattleBarkUhOh("tattletail.bark.uh_oh"),
+    TattleServo("tattletail.servo"),
     MamaIdle("mama.idle"),
     MamaJumpscare("mama.jumpscare"),
     MamaTaunt("mama.taunt"),

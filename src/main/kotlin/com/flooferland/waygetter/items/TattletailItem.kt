@@ -16,11 +16,10 @@ import net.minecraft.world.level.Level
 import com.flooferland.waygetter.blocks.BrushBlock
 import com.flooferland.waygetter.blocks.ChargerBlock
 import com.flooferland.waygetter.components.TattleNeedsDataComponent
-import com.flooferland.waygetter.components.TattleStateDataComponent
 import com.flooferland.waygetter.entities.TattletailEntity
 import com.flooferland.waygetter.registry.ModBlocks
 import com.flooferland.waygetter.registry.ModComponents
-import com.flooferland.waygetter.systems.tattletail.TattleItemStackInstance
+import com.flooferland.waygetter.systems.tattletail.TattleItemStackTempInstance
 import com.flooferland.waygetter.utils.Extensions.getResourceLocation
 import com.flooferland.waygetter.utils.Extensions.secsToTicks
 import com.flooferland.waygetter.utils.playerMadeSound
@@ -180,7 +179,7 @@ class TattletailItem(properties: Properties) : Item(properties), GeoItem {
                         if (player.offhandItem.item is TattletailItem)
                             stack = player.offhandItem
                         if (stack == null) return@run
-                        val instance = TattleItemStackInstance(stack, player)
+                        val instance = TattleItemStackTempInstance(stack, player)
                         instance.manager.tick()
                     }
 
