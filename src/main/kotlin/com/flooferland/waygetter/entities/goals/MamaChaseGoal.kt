@@ -38,7 +38,7 @@ class MamaChaseGoal(val mama: MamaEntity) : Goal() {
         if (mama.sight.seenByAnyone()) return false
         mama.victim?.let { if (it.distanceTo(mama) <= RESTRAINING_ORDER) return false }
         return level.players().any { player ->
-            player.distanceToSqr(mama) < mama.maxDistSqrt
+            player.distanceToSqr(mama) < MamaEntity.MAX_DIST_SQRT
             && player.isProvokingMama()
         }
     }

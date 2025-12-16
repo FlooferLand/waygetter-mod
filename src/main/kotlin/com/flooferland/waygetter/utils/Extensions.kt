@@ -5,6 +5,7 @@ import net.minecraft.nbt.*
 import net.minecraft.network.chat.*
 import net.minecraft.resources.*
 import net.minecraft.server.level.*
+import net.minecraft.util.Mth
 import net.minecraft.world.entity.*
 import net.minecraft.world.entity.player.*
 import net.minecraft.world.item.*
@@ -12,6 +13,7 @@ import net.minecraft.world.level.block.entity.*
 import com.flooferland.waygetter.items.FlashlightItem
 import com.flooferland.waygetter.items.TattletailItem
 import java.util.UUID
+import kotlin.math.atan2
 import kotlin.math.roundToInt
 
 @Suppress("unused")
@@ -65,6 +67,15 @@ object Extensions {
             filter(offhandItem) -> offhandItem
             else -> null
         }
+    fun Entity.lookAt(entity: Entity) {
+        val dx = (entity.x - x).toFloat()
+        val dz = (entity.z - z).toFloat()
+        val yaw = atan2(dz, dx) * 180f / Mth.PI - 90f
+        yRotO = yaw
+        yRot = yaw
+        yHeadRot = yaw
+        setYBodyRot(yaw)
+    }
 
     //region Component
     fun MutableComponent.hover(text: String) = hover(Component.literal(text))

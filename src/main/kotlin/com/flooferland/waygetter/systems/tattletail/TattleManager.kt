@@ -1,6 +1,7 @@
 package com.flooferland.waygetter.systems.tattletail
 
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
@@ -8,36 +9,61 @@ import net.minecraft.sounds.*
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.*
 import net.minecraft.world.level.*
+import net.minecraft.world.level.entity.EntityTypeTest
+import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.HitResult
 import com.flooferland.waygetter.components.TattleStateDataComponent
+import com.flooferland.waygetter.entities.MamaEntity
 import com.flooferland.waygetter.entities.TattletailEntity
 import com.flooferland.waygetter.items.FlashlightItem
 import com.flooferland.waygetter.items.TattletailItem
 import com.flooferland.waygetter.packets.TattleStatePacket
 import com.flooferland.waygetter.registry.ModComponents
+import com.flooferland.waygetter.registry.ModEntities
 import com.flooferland.waygetter.registry.ModSounds
 import com.flooferland.waygetter.registry.ModSynchedData
 import com.flooferland.waygetter.systems.NoiseTracker
+import com.flooferland.waygetter.utils.Extensions.lookAt
 import com.flooferland.waygetter.utils.Extensions.secsToTicks
 import com.flooferland.waygetter.utils.WaygetterUtils
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import kotlin.math.absoluteValue
+import kotlin.math.atan2
+import kotlin.math.sqrt
 
 class TattleManager(val instance: ITattleInstance) {
     companion object {
         init {
             ServerTickEvents.END_WORLD_TICK.register { level ->
-                for (player in level.players()) {
-                    var stack: ItemStack? = null
-                    if (player.mainHandItem.item is TattletailItem)
-                        stack = player.mainHandItem
-                    if (player.offhandItem.item is TattletailItem)
-                        stack = player.offhandItem
-                    if (stack == null) continue
-                    val instance = TattleItemStackInstance(stack, player)
-                    instance.manager.tick()
-                    stack.set(ModComponents.TattleStateData.type, TattleStateDataComponent(instance.state))
+                // Spawning a responsible mama
+                run {
+                    if (level.gameTime % 10.secsToTicks() != 0L) return@run
+                    for (tattletail in level.getEntities(EntityTypeTest.forClass(TattletailEntity::class.java), { _ -> true })) {
+                        val searchZone = AABB.ofSize(tattletail.position(), MamaEntity.MAX_DIST, MamaEntity.MAX_DIST, MamaEntity.MAX_DIST)
+                        val mamas = level.getEntities(ModEntities.Mama.type, searchZone, { _ -> true })
+                        if (mamas.isNotEmpty()) continue
+
+                        val mama = MamaEntity(level)
+                        var mamaPos = tattletail.blockPosition()
+                        val directions = arrayOf(
+                            mamaPos.north(), mamaPos.north().north(),
+                            mamaPos.east(), mamaPos.east().east(),
+                            mamaPos.south(), mamaPos.south().south(),
+                            mamaPos.west(), mamaPos.west().west()
+                        )
+                        directions.shuffle()
+                        for (direction in directions) {
+                            if (level.getBlockState(direction).isAir) {
+                                mamaPos = direction
+                                break
+                            }
+                        }
+                        mama.invisOnSpawn = true
+                        mama.setPos(mamaPos.bottomCenter)
+                        mama.lookAt(tattletail)
+                        level.addFreshEntity(mama)
+                    }
                 }
             }
         }

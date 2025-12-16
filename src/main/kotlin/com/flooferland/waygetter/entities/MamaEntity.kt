@@ -3,7 +3,6 @@ package com.flooferland.waygetter.entities
 import net.minecraft.core.*
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.server.level.*
-import net.minecraft.sounds.SoundSource
 import net.minecraft.tags.GameEventTags
 import net.minecraft.world.entity.monster.*
 import net.minecraft.world.level.*
@@ -29,14 +28,22 @@ import software.bernie.geckolib.animation.AnimatableManager
 import software.bernie.geckolib.util.GeckoLibUtil
 
 class MamaEntity(level: Level) : Monster(ModEntities.Mama.type, level), GeoEntity {
-    val maxDist = 64.0
-    val maxDistSqrt = maxDist * maxDist
+    companion object {
+        const val MAX_DIST = 64.0
+        const val MAX_DIST_SQRT = MAX_DIST * MAX_DIST
+    }
+
     val attackLine = EntityLine(this, 2.5)
-    val line = EntityLine(this, maxDist)
-    val sight = EntitySight(this, maxDist)
+    val line = EntityLine(this, MAX_DIST)
+    val sight = EntitySight(this, MAX_DIST)
     val cache = GeckoLibUtil.createInstanceCache(this)!!
 
     var victim: ServerPlayer? = null
+    var invisOnSpawn = false
+        set(value) {
+            field = value
+            isInvisible = value
+        }
 
     override fun getAnimatableInstanceCache() = cache
     override fun registerControllers(controllers: AnimatableManager.ControllerRegistrar) {
@@ -85,10 +92,17 @@ class MamaEntity(level: Level) : Monster(ModEntities.Mama.type, level), GeoEntit
         }
         val victim = victim ?:
             level.players().firstOrNull() { player ->
-                player.distanceToSqr(this) < maxDistSqrt
+                player.distanceToSqr(this) < MAX_DIST_SQRT
                     && player.isProvokingMama()
             }
         this.victim = victim
+
+        // Spawning in
+        if (invisOnSpawn) isInvisible = true
+        if (invisOnSpawn && tickCount > 20 && (!line.hasLineToAny() || this.victim != null)) {
+            invisOnSpawn = false
+            isInvisible = false
+        }
 
         // Killing the flashlight
         victim?.let { victim ->
@@ -127,7 +141,7 @@ class MamaEntity(level: Level) : Monster(ModEntities.Mama.type, level), GeoEntit
     inner class MamaVibrationListener : GameEventListener {
         val source = EntityPositionSource(this@MamaEntity, this@MamaEntity.eyeHeight)
         override fun getListenerSource() = source
-        override fun getListenerRadius() = maxDist.toInt()
+        override fun getListenerRadius() = MAX_DIST.toInt()
 
         override fun handleGameEvent(level: ServerLevel, gameEvent: Holder<GameEvent>, context: GameEvent.Context, pos: Vec3): Boolean {
             if (!gameEvent.`is`(GameEventTags.WARDEN_CAN_LISTEN)) return false

@@ -7,8 +7,10 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.*
 import net.minecraft.world.item.context.UseOnContext
 import com.flooferland.waygetter.components.TattleNeedsDataComponent
+import com.flooferland.waygetter.components.TattleStateDataComponent
 import com.flooferland.waygetter.entities.TattletailEntity
 import com.flooferland.waygetter.registry.ModComponents
+import com.flooferland.waygetter.systems.tattletail.TattleItemStackInstance
 import java.util.function.Consumer
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import org.apache.commons.lang3.mutable.MutableObject
@@ -58,22 +60,38 @@ class TattletailItem(properties: Properties) : Item(properties), GeoItem {
         init {
             ServerTickEvents.START_WORLD_TICK.register { level ->
                 for (player in level.players()) {
-                    if (level.gameTime % 10 != 0L) continue
-                    val (hand, stack) = when {
-                        player.mainHandItem.item is TattletailItem -> Pair(InteractionHand.MAIN_HAND, player.mainHandItem)
-                        player.offhandItem.item is TattletailItem -> Pair(InteractionHand.OFF_HAND, player.offhandItem)
-                        else -> continue
+                    // Updating Tattletail state
+                    run {
+                        var stack: ItemStack? = null
+                        if (player.mainHandItem.item is TattletailItem)
+                            stack = player.mainHandItem
+                        if (player.offhandItem.item is TattletailItem)
+                            stack = player.offhandItem
+                        if (stack == null) return@run
+                        val instance = TattleItemStackInstance(stack, player)
+                        instance.manager.tick()
+                        stack.set(ModComponents.TattleStateData.type, TattleStateDataComponent(instance.state))
                     }
-                    val needsComp = stack.components.getOrDefault(ModComponents.TattleNeedsData.type, TattleNeedsDataComponent())
 
-                    val newStack = stack.copy()
-                    val newNeeds = TattleNeedsDataComponent().apply {
-                        needs.feed = (needsComp.needs.feed - 0.007f).coerceIn(0f..1f)
-                        needs.groom = (needsComp.needs.groom - 0.005f).coerceIn(0f..1f)
-                        needs.battery = (needsComp.needs.battery - 0.003f).coerceIn(0f..1f)
+                    // Updating Tattletail needs
+                    run {
+                        if (level.gameTime % 10 != 0L) return@run
+                        val (hand, stack) = when {
+                            player.mainHandItem.item is TattletailItem -> Pair(InteractionHand.MAIN_HAND, player.mainHandItem)
+                            player.offhandItem.item is TattletailItem -> Pair(InteractionHand.OFF_HAND, player.offhandItem)
+                            else -> return@run
+                        }
+                        val needsComp = stack.components.getOrDefault(ModComponents.TattleNeedsData.type, TattleNeedsDataComponent())
+
+                        val newStack = stack.copy()
+                        val newNeeds = TattleNeedsDataComponent().apply {
+                            needs.feed = (needsComp.needs.feed - 0.007f).coerceIn(0f..1f)
+                            needs.groom = (needsComp.needs.groom - 0.005f).coerceIn(0f..1f)
+                            needs.battery = (needsComp.needs.battery - 0.003f).coerceIn(0f..1f)
+                        }
+                        newStack.set(ModComponents.TattleNeedsData.type, newNeeds)
+                        player.setItemInHand(hand, newStack)
                     }
-                    newStack.set(ModComponents.TattleNeedsData.type, newNeeds)
-                    player.setItemInHand(hand, newStack)
                 }
             }
         }
