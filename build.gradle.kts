@@ -135,6 +135,7 @@ tasks.withType<ProcessResources>().configureEach {
     }
 
     exclude("**/*.lnk")
+    exclude("icon_full.png")
     filesMatching("fabric.mod.json") {
         expand(properties)
     }
