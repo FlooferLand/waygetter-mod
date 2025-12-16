@@ -118,7 +118,7 @@ class MamaEntity(level: Level) : Monster(ModEntities.Mama.type, level), GeoEntit
             val clip = level.clip(ClipContext(victimFrom, boundingBox.center, ClipContext.Block.VISUAL, ClipContext.Fluid.ANY, victim))
             if (clip.type != HitResult.Type.MISS) return@let
 
-            if (victim.entityData.get(ModSynchedData.flashlightBattery) > 0f) {
+            if (victim.entityData.get(ModSynchedData.flashlightBattery) > 0f && victim.useItem?.item !is FlashlightItem) {
                 victim.entityData.set(ModSynchedData.flashlightBattery, 0f,  true)
                 playerMadeSound(level, victim, ModSounds.FlashlightDie)
             }
