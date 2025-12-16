@@ -9,6 +9,9 @@ import com.flooferland.waygetter.utils.rl
 
 enum class ModItemGroups {
     Main("main", { params, out ->
+        for (block in ModBlocks.entries) {
+            out.accept(block.item)
+        }
         for (item in ModItems.entries) {
             out.accept(item.item)
         }

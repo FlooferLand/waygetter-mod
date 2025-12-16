@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "facing=east": {
+            "model": "waygetter:block/brush",
+            "y": 90
+        },
+        "facing=north": {
+            "model": "waygetter:block/brush"
+        },
+        "facing=south": {
+            "model": "waygetter:block/brush",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "waygetter:block/brush",
+            "y": 270
+        }
+    }
+}

@@ -8,5 +8,8 @@
     "entity.waygetter.mama": "Mama Tattletail",
 
     "item.waygetter.flashlight": "Flashlight",
-    "item.waygetter.flashlight.gold": "Golden Flashlight"
+    "item.waygetter.flashlight.gold": "Golden Flashlight",
+
+    "block.waygetter.charger": "Charger",
+    "block.waygetter.brush": "Brush"
 }

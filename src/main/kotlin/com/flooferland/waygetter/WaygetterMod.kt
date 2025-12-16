@@ -1,5 +1,6 @@
 package com.flooferland.waygetter
 
+import com.flooferland.waygetter.registry.ModBlocks
 import com.flooferland.waygetter.registry.ModComponents
 import com.flooferland.waygetter.registry.ModEntities
 import com.flooferland.waygetter.registry.ModItemGroups
@@ -30,6 +31,7 @@ object WaygetterMod {
             ModComponents
             ModSynchedData
             ModItems.entries
+            ModBlocks.entries
             ModSounds.entries
             ModEntities
 
