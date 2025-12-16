@@ -20,10 +20,15 @@ object NoiseTracker {
     const val DECAY = 0.03f // per tick
 
     private val noiseMap = WeakHashMap<ServerPlayer, Float>()
+    private val lastingNoiseMap = WeakHashMap<ServerPlayer, MutableList<LastingNoise>>()
+
+    private data class LastingNoise(val amount: Float = 0f, var ticksLeft: Int = 0)
 
     //region Management
-    fun get(player: ServerPlayer): Float =
-        noiseMap.getOrDefault(player, 0f)
+    fun get(player: ServerPlayer): Float {
+        val lasting = (lastingNoiseMap[player] ?: mutableListOf()).asSequence().map { it.amount }.sum()
+        return noiseMap.getOrDefault(player, 0f) + lasting
+    }
 
     fun set(player: ServerPlayer, amount: Float) {
         noiseMap[player] = amount.coerceIn(0f..MAX_NOISE)
@@ -31,6 +36,11 @@ object NoiseTracker {
 
     fun add(player: ServerPlayer, amount: Float) {
         set(player, get(player) + amount)
+    }
+
+    fun addLasting(player: ServerPlayer, amount: Float, ticks: Int) {
+        val map = lastingNoiseMap.getOrPut(player) { mutableListOf() }
+        map.add(LastingNoise(amount, ticks))
     }
 
     fun updateVibration(player: ServerPlayer, event: Holder<GameEvent>) {
@@ -58,7 +68,16 @@ object NoiseTracker {
     fun register() {
         ServerTickEvents.START_WORLD_TICK.register { level ->
             for (player in level.players()) {
+                if (player == null) continue
                 updatePlayer(player)
+
+                // Lasting noise
+                lastingNoiseMap[player]?.let { lasting ->
+                    lasting.removeIf {
+                        it.ticksLeft -= 1
+                        it.ticksLeft <= 0
+                    }
+                }
 
                 // TODO: [Speed] Figure out a way to not send this every frame
                 ServerPlayNetworking.send(player, DisplayNoisePacket(get(player)))

@@ -96,12 +96,6 @@ class TattleManager(val instance: ITattleInstance) {
         }
         stack.set(ModComponents.TattleStateData.type, TattleStateDataComponent(state))
         stack.set(ModComponents.TattleNeedsData.type, TattleNeedsDataComponent(needs))
-
-        // Side effects
-        val owner = getOwner()
-        if (state.timeIdle < 20 * 2.2f && owner is ServerPlayer) {
-            NoiseTracker.add(owner, NoiseTracker.NOISE_MEDIUM)
-        }
     }
 
     // TODO: Fix bug where this sometimes won't play an animation despite being supposed to
@@ -174,7 +168,11 @@ class TattleManager(val instance: ITattleInstance) {
         playAnim(anim)
     }
 
-    fun playAnim(name: String) {
+    fun playAnim(name: String, soundLengthTicks: Int = 3.secsToTicks()) {
+        val owner = getOwner()
+        if (owner is ServerPlayer) {
+            NoiseTracker.addLasting(owner, NoiseTracker.NOISE_MEDIUM, soundLengthTicks)
+        }
         for (player in instance.getLevel().players()) {
             if (player !is ServerPlayer) continue
             val owner = getOwner()?.uuid ?: continue
