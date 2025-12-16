@@ -4,7 +4,9 @@ import net.minecraft.core.*
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.server.level.*
 import net.minecraft.tags.GameEventTags
+import net.minecraft.world.entity.PathfinderMob
 import net.minecraft.world.entity.monster.*
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.*
 import net.minecraft.world.level.gameevent.*
 import net.minecraft.world.level.pathfinder.PathType
@@ -27,7 +29,7 @@ import software.bernie.geckolib.animatable.GeoEntity
 import software.bernie.geckolib.animation.AnimatableManager
 import software.bernie.geckolib.util.GeckoLibUtil
 
-class MamaEntity(level: Level) : Monster(ModEntities.Mama.type, level), GeoEntity {
+class MamaEntity(level: Level) : PathfinderMob(ModEntities.Mama.type, level), GeoEntity {
     companion object {
         const val MAX_DIST = 64.0
         const val MAX_DIST_SQRT = MAX_DIST * MAX_DIST
@@ -58,6 +60,8 @@ class MamaEntity(level: Level) : Monster(ModEntities.Mama.type, level), GeoEntit
 
     override fun isPushable() = false
     override fun removeWhenFarAway(distanceToClosestPlayer: Double) = false
+
+    override fun shouldDespawnInPeaceful() = true
 
     override fun getAmbientSound() = ModSounds.MamaTaunt.event
     override fun getSoundVolume() = 0.5f
