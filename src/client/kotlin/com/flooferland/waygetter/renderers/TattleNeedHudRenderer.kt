@@ -15,6 +15,7 @@ import com.flooferland.waygetter.utils.Extensions.getHeldItem
 import com.flooferland.waygetter.utils.WaygetterUtils
 import com.flooferland.waygetter.utils.lerp
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
+import kotlin.math.ceil
 
 // TODO: [Config] Add a way to change the position of the Tattletail statistics HUD
 
@@ -82,7 +83,7 @@ object TattleNeedHudRenderer {
             graphics.fillGradientHorizontal(  // Value
                 pad + sep + barStart,
                 lineY,
-                pad + sep + barStart + (need.value * barWidth).toInt(),
+                pad + sep + barStart + ceil(need.value * barWidth).toInt(),
                 lineY + fontHeight - 3,
                 FastColor.ARGB32.multiply(need.color, FastColor.ARGB32.color(140, 140, 140)),
                 need.color

@@ -54,8 +54,8 @@
             "waygetter:noise_beep_04"
         ]
     },
-    "flashlight_shake": { "sounds": ["waygetter:flashlight_shake"] },
-    "flashlight_shake_gold": { "sounds": ["waygetter:flashlight_shake_gold"] },
+    "flashlight_shake": { "sounds": ["waygetter:flashlight_shake"], "volume": 0.7 },
+    "flashlight_shake_gold": { "sounds": ["waygetter:flashlight_shake_gold"], "volume": 0.7  },
     "flashlight_die": { "sounds": ["waygetter:flashlight_die"] },
     "alert_stinger": { "sounds": ["waygetter:alert_stinger"] },
     "info_stinger": { "sounds": ["waygetter:info_stinger"] },

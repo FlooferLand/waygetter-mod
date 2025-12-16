@@ -64,8 +64,8 @@ class FlashlightItem(properties: Properties) : Item(properties), GeoItem {
     }
 
     companion object {
-        const val GAIN = 0.035f
-        const val DECAY = 0.005f
+        const val GAIN = 0.04f
+        const val DECAY = 0.004f
 
         var REGISTER_CONTROLLERS: (self: FlashlightItem, controllers: AnimatableManager.ControllerRegistrar) -> Unit = { self, controllers -> }
     }

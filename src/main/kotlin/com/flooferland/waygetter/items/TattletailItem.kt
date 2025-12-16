@@ -99,13 +99,17 @@ class TattletailItem(properties: Properties) : Item(properties), GeoItem {
         }
 
         // Placing down the Tattletail
-        val entity = TattletailEntity(level)
-        entity.setPos(pos)
-        entity.yRot = 180f + context.rotation
-        entity.itemStack = stack
-        level.addFreshEntity(entity)
+        val tattlePlaceState = level.getBlockState(context.clickedPos.above())
+        val canPlaceOnBlock = tattlePlaceState.isAir || !tattlePlaceState.isCollisionShapeFullBlock(level, context.clickedPos.above())
+        if (canPlaceOnBlock && context.hand == InteractionHand.MAIN_HAND) {
+            val entity = TattletailEntity(level)
+            entity.setPos(pos)
+            entity.yRot = 180f + context.rotation
+            entity.itemStack = stack
+            level.addFreshEntity(entity)
+            player.setItemInHand(context.hand, ItemStack.EMPTY)
+        }
 
-        player.setItemInHand(context.hand, ItemStack.EMPTY)
         return InteractionResult.SUCCESS
     }
 
@@ -152,7 +156,7 @@ class TattletailItem(properties: Properties) : Item(properties), GeoItem {
             NeedUseType.Feed -> {
                 val foodComp = use.useStack.get(DataComponents.FOOD) ?: return
                 val nutrition = foodComp.nutrition.toFloat() / getUseDuration(stack, entity).toFloat()
-                needsComp.needs.feed = (needsComp.needs.feed + (nutrition / 2f)).coerceIn(0f..1f)
+                needsComp.needs.feed = (needsComp.needs.feed + nutrition).coerceIn(0f..1f)
                 use.useStack.shrink(1)
             }
             else -> {}
@@ -195,9 +199,9 @@ class TattletailItem(properties: Properties) : Item(properties), GeoItem {
 
                         val newStack = stack.copy()
                         val newNeeds = TattleNeedsDataComponent().apply {
-                            needs.feed = (needsComp.needs.feed - 0.007f).coerceIn(0f..1f)
-                            needs.groom = (needsComp.needs.groom - 0.005f).coerceIn(0f..1f)
-                            needs.battery = (needsComp.needs.battery - 0.003f).coerceIn(0f..1f)
+                            needs.feed = (needsComp.needs.feed - 0.003f).coerceIn(0f..1f)
+                            needs.groom = (needsComp.needs.groom - 0.003f).coerceIn(0f..1f)
+                            needs.battery = (needsComp.needs.battery - 0.002f).coerceIn(0f..1f)
                         }
                         newStack.set(ModComponents.TattleNeedsData.type, newNeeds)
                         player.setItemInHand(hand, newStack)

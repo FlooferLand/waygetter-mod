@@ -61,8 +61,9 @@ class MamaEntity(level: Level) : PathfinderMob(ModEntities.Mama.type, level), Ge
     override fun dampensVibrations() = true
     // endregion
 
+    override fun isInvulnerable() = true
     override fun isPushable() = false
-    override fun removeWhenFarAway(distanceToClosestPlayer: Double) = false
+    override fun removeWhenFarAway(distanceToClosestPlayer: Double) = distanceToClosestPlayer > MAX_DIST && victim == null
 
     override fun shouldDespawnInPeaceful() = true
 
