@@ -1,26 +1,21 @@
 package com.flooferland.waygetter.systems.tattletail
 
 import net.minecraft.core.BlockPos
-import net.minecraft.core.Direction
-import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.sounds.*
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.item.*
 import net.minecraft.world.level.*
 import net.minecraft.world.level.entity.EntityTypeTest
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.HitResult
+import com.flooferland.waygetter.components.TattleNeedsDataComponent
 import com.flooferland.waygetter.components.TattleStateDataComponent
 import com.flooferland.waygetter.entities.MamaEntity
 import com.flooferland.waygetter.entities.TattletailEntity
 import com.flooferland.waygetter.items.FlashlightItem
-import com.flooferland.waygetter.items.TattletailItem
 import com.flooferland.waygetter.packets.TattleStatePacket
 import com.flooferland.waygetter.registry.ModComponents
 import com.flooferland.waygetter.registry.ModEntities
-import com.flooferland.waygetter.registry.ModSounds
 import com.flooferland.waygetter.registry.ModSynchedData
 import com.flooferland.waygetter.systems.NoiseTracker
 import com.flooferland.waygetter.utils.Extensions.lookAt
@@ -29,8 +24,6 @@ import com.flooferland.waygetter.utils.WaygetterUtils
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import kotlin.math.absoluteValue
-import kotlin.math.atan2
-import kotlin.math.sqrt
 
 class TattleManager(val instance: ITattleInstance) {
     companion object {
@@ -82,8 +75,10 @@ class TattleManager(val instance: ITattleInstance) {
     // TODO: Fix client/server BS, send animation to the client when playAnim is called
 
     fun tick() {
-        val state = instance.state
         val level = instance.getLevel() as? ServerLevel ?: return
+        val stack = instance.getTattleStack()
+        val state = stack.getOrDefault(ModComponents.TattleStateData.type, TattleStateDataComponent(TattleState()))?.state ?: return
+        val needs = stack.getOrDefault(ModComponents.TattleNeedsData.type, TattleNeedsDataComponent())?.needs ?: return
 
         // Not ticking if not necessary
         val canYap = run {
@@ -97,9 +92,10 @@ class TattleManager(val instance: ITattleInstance) {
         state.timeIdle++
         if (state.timeIdle > state.nextYapTime) {
             state.timeIdle = 0
-            if (canYap) yap(level, state)
+            if (canYap) yap(level, state, needs)
         }
-        instance.state = state
+        stack.set(ModComponents.TattleStateData.type, TattleStateDataComponent(state))
+        stack.set(ModComponents.TattleNeedsData.type, TattleNeedsDataComponent(needs))
 
         // Side effects
         val owner = getOwner()
@@ -108,23 +104,45 @@ class TattleManager(val instance: ITattleInstance) {
         }
     }
 
-    fun yap(level: ServerLevel, state: TattleState) {
+    fun yap(level: ServerLevel, state: TattleState, needs: TattleNeeds) {
         val tooDark = getTooDark(level, instance.getPos(), (instance as? TattleItemStackInstance)?.player)
-        if (tooDark) {
-            if (!state.scared) {
-                state.nextYapTime = 3.secsToTicks()
-                playAnim("its_dark")
-                state.scared = true
-            } else {
-                state.nextYapTime = 2.secsToTicks()
-                playAnim("ahh")
+        when {
+            // Fear of the dark
+            tooDark -> {
+                if (!state.scared) {
+                    state.nextYapTime = 3.secsToTicks()
+                    playAnim("its_dark")
+                    state.scared = true
+                } else {
+                    state.nextYapTime = 2.secsToTicks()
+                    playAnim("ahh")
+                }
             }
-        } else if (state.scared) {
-            state.scared = false
-            state.nextYapTime = 5.secsToTicks() + WaygetterUtils.random.nextIntBetweenInclusive(1, 3).secsToTicks()
-        } else {
-            state.nextYapTime = 3.secsToTicks() + WaygetterUtils.random.nextIntBetweenInclusive(5, 20).secsToTicks()
-            playRandomIdle()
+            state.scared -> {
+                state.scared = false
+                state.nextYapTime = 5.secsToTicks() + WaygetterUtils.random.nextIntBetweenInclusive(1, 3).secsToTicks()
+            }
+
+            // Low battery
+            needs.battery < 0.2f && !state.tired -> {
+                if (needs.battery > 0.05) {
+                    state.nextYapTime = 6.secsToTicks()
+                    playAnim("tired")
+                    state.tired = true
+                } else {
+                    state.nextYapTime = 3.secsToTicks()
+                    playAnim("uh_oh")
+                }
+            }
+            state.tired -> {
+                state.tired = false
+                state.nextYapTime = 3.secsToTicks() + WaygetterUtils.random.nextIntBetweenInclusive(1, 3).secsToTicks()
+            }
+
+            else -> {
+                state.nextYapTime = 3.secsToTicks() + WaygetterUtils.random.nextIntBetweenInclusive(5, 20).secsToTicks()
+                playRandomIdle()
+            }
         }
     }
 

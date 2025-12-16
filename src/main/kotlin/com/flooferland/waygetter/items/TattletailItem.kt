@@ -182,7 +182,6 @@ class TattletailItem(properties: Properties) : Item(properties), GeoItem {
                         if (stack == null) return@run
                         val instance = TattleItemStackInstance(stack, player)
                         instance.manager.tick()
-                        stack.set(ModComponents.TattleStateData.type, TattleStateDataComponent(instance.state))
                     }
 
                     // Updating Tattletail needs
@@ -193,7 +192,7 @@ class TattletailItem(properties: Properties) : Item(properties), GeoItem {
                             player.offhandItem.item is TattletailItem -> Pair(InteractionHand.OFF_HAND, player.offhandItem)
                             else -> return@run
                         }
-                        val needsComp = stack.components.getOrDefault(ModComponents.TattleNeedsData.type, TattleNeedsDataComponent())
+                        val needsComp = stack.getOrDefault(ModComponents.TattleNeedsData.type, TattleNeedsDataComponent())
 
                         val newStack = stack.copy()
                         val newNeeds = TattleNeedsDataComponent().apply {

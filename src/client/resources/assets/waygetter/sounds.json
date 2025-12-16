@@ -1,7 +1,4 @@
 {
-    "tattletail.bark.me_tattletail": { "sounds": ["waygetter:tattletail_bark_me_tattletail"] },
-    "tattletail.bark.thats_me": { "sounds": ["waygetter:tattletail_bark_thats_me"] },
-    "tattletail.bark.its_dark": { "sounds": ["waygetter:tattletail_bark_its_dark"] },
     "tattletail.bark.ahh": {
         "sounds": [
             "waygetter:tattletail_bark_ahh_01",
@@ -12,6 +9,20 @@
             "waygetter:tattletail_bark_ahh_06"
         ]
     },
+    "tattletail.bark.its_dark": { "sounds": ["waygetter:tattletail_bark_its_dark"] },
+    "tattletail.bark.me_tattletail": { "sounds": ["waygetter:tattletail_bark_me_tattletail"] },
+    "tattletail.bark.me_tired": { "sounds": ["waygetter:tattletail_bark_me_tired"] },
+    "tattletail.bark.night_night": { "sounds": ["waygetter:tattletail_bark_me_tired"] },
+    "tattletail.bark.thats_me": { "sounds": ["waygetter:tattletail_bark_thats_me"] },
+    "tattletail.bark.uh_oh": {
+        "sounds": [
+            "waygetter:tattletail_bark_uh_oh_01",
+            "waygetter:tattletail_bark_uh_oh_02",
+            "waygetter:tattletail_bark_uh_oh_03",
+            "waygetter:tattletail_bark_uh_oh_04"
+        ]
+    },
+
     "mama.idle": { "sounds": ["waygetter:mama_jumpscare"] },
     "mama.jumpscare": { "sounds": ["waygetter:mama_jumpscare"] },
     "mama.taunt": {

@@ -12,6 +12,7 @@ data class TattleState(
     var timeIdle: Int = 0,
     var nextYapTime: Int = 0,
     var scared: Boolean = false,
+    var tired: Boolean = false,
     var currentAnim: String = "",
 ) {
     companion object {
@@ -20,9 +21,10 @@ data class TattleState(
                 Codec.INT.optionalFieldOf("timeIdle", 0).forGetter { it.timeIdle },
                 Codec.INT.optionalFieldOf("nextYapTime", 0).forGetter { it.nextYapTime },
                 Codec.BOOL.optionalFieldOf("scared", false).forGetter { it.scared },
+                Codec.BOOL.optionalFieldOf("tired", false).forGetter { it.scared },
                 Codec.STRING.optionalFieldOf("currentAnim", "").forGetter { it.currentAnim },
-            ).apply(instance) { timeIdle, nextYapTime, scared, currentAnim ->
-                TattleState(timeIdle, nextYapTime, scared, currentAnim)
+            ).apply(instance) { timeIdle, nextYapTime, scared, tired, currentAnim ->
+                TattleState(timeIdle, nextYapTime, scared, tired, currentAnim)
             }
         }
         fun load(tag: CompoundTag) = runCatching { CODEC.decode(NbtOps.INSTANCE, tag).orThrow }.getOrNull()?.first

@@ -104,7 +104,7 @@ object WaygetterModClient {
                 setState(state)
                 stack.set(ModComponents.TattleStateData.type, TattleStateDataComponent(state))
             } else if (entity is TattletailEntity) {
-                setState(entity.state)
+                entity.itemStack.get(ModComponents.TattleStateData.type)?.state?.let { setState(it) }
             }
         }
     }

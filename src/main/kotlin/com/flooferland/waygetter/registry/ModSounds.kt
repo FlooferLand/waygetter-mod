@@ -7,10 +7,13 @@ import net.minecraft.sounds.SoundEvent
 import com.flooferland.waygetter.utils.rl
 
 enum class ModSounds {
-    TattleBarkMeTattletail("tattletail.bark.me_tattletail"),
-    TattleBarkThatsMe("tattletail.bark.thats_me"),
-    TattleBarkItsDark("tattletail.bark.its_dark"),
     TattleBarkAhh("tattletail.bark.ahh"),
+    TattleBarkItsDark("tattletail.bark.its_dark"),
+    TattleBarkMeTattletail("tattletail.bark.me_tattletail"),
+    TattleBarkMeTired("tattletail.bark.me_tired"),
+    TattleBarkNightNight("tattletail.bark.night_night"),
+    TattleBarkThatsMe("tattletail.bark.thats_me"),
+    TattleBarkUhOh("tattletail.bark.uh_oh"),
     MamaIdle("mama.idle"),
     MamaJumpscare("mama.jumpscare"),
     MamaTaunt("mama.taunt"),
