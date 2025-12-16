@@ -51,6 +51,12 @@ stonecutter {
     constants["neoforge"] = isNeoforge
 }
 
+fabricApi {
+    configureDataGeneration() {
+        client = true
+    }
+}
+
 loom {
     splitEnvironmentSourceSets()
     mods {
