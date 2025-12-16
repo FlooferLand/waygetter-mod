@@ -9,6 +9,8 @@
             "waygetter:tattletail_bark_ahh_06"
         ]
     },
+    "tattletail.bark.brush_me": { "sounds": ["waygetter:tattletail_bark_brush_me"] },
+    "tattletail.bark.give_me_a_treat": { "sounds": ["waygetter:tattletail_bark_give_me_a_treat"] },
     "tattletail.bark.its_dark": { "sounds": ["waygetter:tattletail_bark_its_dark"] },
     "tattletail.bark.me_tattletail": { "sounds": ["waygetter:tattletail_bark_me_tattletail"] },
     "tattletail.bark.me_tired": { "sounds": ["waygetter:tattletail_bark_me_tired"] },

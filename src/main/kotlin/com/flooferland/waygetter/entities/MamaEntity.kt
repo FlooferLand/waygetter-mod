@@ -3,6 +3,7 @@ package com.flooferland.waygetter.entities
 import net.minecraft.core.*
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.server.level.*
+import net.minecraft.sounds.SoundSource
 import net.minecraft.tags.GameEventTags
 import net.minecraft.world.entity.PathfinderMob
 import net.minecraft.world.entity.monster.*
@@ -91,15 +92,14 @@ class MamaEntity(level: Level) : PathfinderMob(ModEntities.Mama.type, level), Ge
         val level = level() as? ServerLevel ?: return
 
         // Setting the victim
-        if (victim?.isProvokingMama() ?: false) {
-            victim = null
-        }
-        val victim = victim ?:
-            level.players().firstOrNull() { player ->
+        val victim = level.players().firstOrNull() { player ->
                 player.distanceToSqr(this) < MAX_DIST_SQRT
                     && player.isProvokingMama()
             }
-        this.victim = victim
+        if (this.victim?.id != victim?.id) {
+            if (victim != null) playSound(ModSounds.AlertStinger.event)
+            this.victim = victim
+        }
 
         // Spawning in
         if (invisOnSpawn) isInvisible = true

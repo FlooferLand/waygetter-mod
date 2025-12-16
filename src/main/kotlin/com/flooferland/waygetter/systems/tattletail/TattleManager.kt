@@ -104,6 +104,7 @@ class TattleManager(val instance: ITattleInstance) {
         }
     }
 
+    // TODO: Fix bug where this sometimes won't play an animation despite being supposed to
     fun yap(level: ServerLevel, state: TattleState, needs: TattleNeeds) {
         val tooDark = getTooDark(level, instance.getPos(), (instance as? TattleItemStackInstance)?.player)
         when {
@@ -137,6 +138,18 @@ class TattleManager(val instance: ITattleInstance) {
             state.tired -> {
                 state.tired = false
                 state.nextYapTime = 3.secsToTicks() + WaygetterUtils.random.nextIntBetweenInclusive(1, 3).secsToTicks()
+            }
+
+            // Low groom
+            needs.groom < 0.1f -> {
+                state.nextYapTime = 2.secsToTicks()
+                playAnim("brush_me")
+            }
+
+            // Low food
+            needs.feed < 0.1f -> {
+                state.nextYapTime = 2.secsToTicks()
+                playAnim("give_me_a_treat")
             }
 
             else -> {

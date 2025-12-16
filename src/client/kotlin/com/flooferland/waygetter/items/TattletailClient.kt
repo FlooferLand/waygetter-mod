@@ -26,6 +26,8 @@ object TattletailClient {
     val barkUhOh = RawAnimation.begin().thenPlay("animation.tattletail.uh_oh")!!
     val barkNightNight = RawAnimation.begin().thenPlay("animation.tattletail.night_night")!!
     val barkMeTired = RawAnimation.begin().thenPlay("animation.tattletail.me_tired")!!
+    val barkBrushMe = RawAnimation.begin().thenPlay("animation.tattletail.brush_me")!!
+    val barkGiveMeATreat = RawAnimation.begin().thenPlay("animation.tattletail.give_me_a_treat")!!
 
     /** Blockbench sound IDs to sounds */
     val sounds = mapOf(
@@ -34,7 +36,9 @@ object TattletailClient {
         "tattletail_bark_its_dark" to ModSounds.TattleBarkItsDark,
         "tattletail_bark_night_night" to ModSounds.TattleBarkNightNight,
         "tattletail_bark_me_tired" to ModSounds.TattleBarkMeTired,
-        "tattletail_bark_uh_oh" to ModSounds.TattleBarkUhOh
+        "tattletail_bark_uh_oh" to ModSounds.TattleBarkUhOh,
+        "tattletail_bark_brush_me" to ModSounds.TattleBarkBrushMe,
+        "tattletail_bark_give_me_a_treat" to ModSounds.TattleBarkGiveMeATreat
     )
 
     fun registerControllers(self: GeoAnimatable, controllers: AnimatableManager.ControllerRegistrar) {
@@ -49,9 +53,11 @@ object TattletailClient {
             if (event.controller.currentAnimation == null || event.controller.hasAnimationFinished()) {
                 if (state.currentAnim.isNotEmpty()) event.controller.animationSpeed = 1.0
                 when (state.currentAnim) {
+                    "brush_me" -> event.controller.setAnimation(barkBrushMe)
+                    "give_me_a_treat" -> event.controller.setAnimation(barkGiveMeATreat)
+                    "its_dark" -> event.controller.setAnimation(barkItsDark)
                     "me_tattletail" -> event.controller.setAnimation(barkMeTattletailAnim)
                     "thats_me" -> event.controller.setAnimation(barkThatsMeAnim)
-                    "its_dark" -> event.controller.setAnimation(barkItsDark)
                     "tired" -> event.controller.setAnimation(arrayOf(barkNightNight, barkMeTired).random())
                     "uh_oh" -> {
                         event.controller.animationSpeed = 0.8 + WaygetterUtils.random.nextDouble() * 0.4
