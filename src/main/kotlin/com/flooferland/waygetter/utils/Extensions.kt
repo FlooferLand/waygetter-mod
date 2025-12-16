@@ -20,7 +20,8 @@ import kotlin.math.roundToInt
 object Extensions {
     // Waygetter mod specific
     fun Player.isProvokingMama(): Boolean {
-        return isHolding { it.item is TattletailItem } || inventory.hasAnyMatching { it.item is TattletailItem }
+        return (level().dayTime in 11000..25000)
+                && (isHolding { it.item is TattletailItem } || inventory.hasAnyMatching { it.item is TattletailItem })
     }
     fun Player.canMakeSound(): Boolean {
         return isProvokingMama() || isHolding { it.item is FlashlightItem }
