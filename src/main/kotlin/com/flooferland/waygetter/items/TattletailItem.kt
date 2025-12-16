@@ -87,10 +87,10 @@ class TattletailItem(properties: Properties) : Item(properties), GeoItem {
             val needsComp = stack.get(ModComponents.TattleNeedsData.type) ?: return InteractionResult.PASS
             when (use.type) {
                 NeedUseType.Charge -> {
-                    needsComp.needs.battery += 0.05f
+                    needsComp.needs.battery = (needsComp.needs.battery + 0.05f).coerceIn(0f..1f)
                 }
                 NeedUseType.Groom -> {
-                    needsComp.needs.groom += 0.05f
+                    needsComp.needs.groom = (needsComp.needs.groom + 0.05f).coerceIn(0f..1f)
                 }
                 else -> {}
             }
@@ -152,7 +152,7 @@ class TattletailItem(properties: Properties) : Item(properties), GeoItem {
             NeedUseType.Feed -> {
                 val foodComp = use.useStack.get(DataComponents.FOOD) ?: return
                 val nutrition = foodComp.nutrition.toFloat() / getUseDuration(stack, entity).toFloat()
-                needsComp.needs.feed += nutrition
+                needsComp.needs.feed = (needsComp.needs.feed + (nutrition / 2f)).coerceIn(0f..1f)
                 use.useStack.shrink(1)
             }
             else -> {}
