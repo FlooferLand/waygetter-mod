@@ -1,8 +1,6 @@
 package com.flooferland.waygetter.systems.tattletail
 
 import net.minecraft.core.BlockPos
-import net.minecraft.core.Holder
-import net.minecraft.network.protocol.game.ClientboundSoundPacket
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundSource
@@ -11,7 +9,6 @@ import net.minecraft.world.level.*
 import net.minecraft.world.level.entity.EntityTypeTest
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.HitResult
-import net.minecraft.world.phys.Vec3
 import com.flooferland.waygetter.components.TattleNeedsDataComponent
 import com.flooferland.waygetter.components.TattleStateDataComponent
 import com.flooferland.waygetter.entities.MamaEntity
@@ -44,16 +41,10 @@ class TattleManager(val instance: ITattleInstance) {
 
                         val mama = MamaEntity(level)
                         var mamaPos = tattletail.blockPosition()
-                        val directions = arrayOf(
-                            mamaPos.north(), mamaPos.north().north(),
-                            mamaPos.east(), mamaPos.east().east(),
-                            mamaPos.south(), mamaPos.south().south(),
-                            mamaPos.west(), mamaPos.west().west()
-                        )
-                        directions.shuffle()
-                        for (direction in directions) {
-                            if (level.getBlockState(direction).isAir) {
-                                mamaPos = direction
+                        val positions = Array<BlockPos>(50) { BlockPos.containing(tattletail.getRandomX(10.0), tattletail.randomY, tattletail.getRandomZ(10.0)) }
+                        for (pos in positions) {
+                            if (level.getBlockState(pos).isAir && !(level.getBlockState(pos.below()).isAir || level.getBlockState(pos.below().below()).isAir)) {
+                                mamaPos = pos
                                 break
                             }
                         }

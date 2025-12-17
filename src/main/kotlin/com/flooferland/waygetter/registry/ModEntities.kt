@@ -30,6 +30,7 @@ sealed class ModEntities<E>(name: String, factory: (Level) -> E, size: EntityDim
         category = MobCategory.MONSTER,
         attributes = Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH, 200.0)
+            .add(Attributes.ATTACK_DAMAGE, 10.0)
     )
 
     val id = rl(name)

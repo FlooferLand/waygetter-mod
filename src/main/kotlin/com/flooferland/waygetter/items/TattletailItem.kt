@@ -112,7 +112,7 @@ class TattletailItem(properties: Properties) : Item(properties), GeoItem {
 
         return InteractionResult.SUCCESS
     }
-
+    
     override fun getUseAnimation(stack: ItemStack) = UseAnim.NONE
     override fun getUseDuration(stack: ItemStack, entity: LivingEntity) = 1.secsToTicks()
     override fun use(level: Level, player: Player, tattleHand: InteractionHand): InteractionResultHolder<ItemStack> {
