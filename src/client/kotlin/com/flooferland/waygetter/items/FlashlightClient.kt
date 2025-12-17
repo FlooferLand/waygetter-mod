@@ -3,6 +3,7 @@ package com.flooferland.waygetter.items
 import net.minecraft.client.*
 import net.minecraft.client.resources.sounds.SimpleSoundInstance
 import com.flooferland.waygetter.registry.ModSounds
+import com.flooferland.waygetter.utils.WaygetterRandom
 import com.flooferland.waygetter.utils.WaygetterUtils
 import software.bernie.geckolib.animation.AnimatableManager
 import software.bernie.geckolib.animation.AnimationController
@@ -32,8 +33,8 @@ object FlashlightClient {
         controller.setSoundKeyframeHandler { event ->
             val mc = Minecraft.getInstance() ?: return@setSoundKeyframeHandler
             val sound = ModSounds.FlashlightShake
-            val pitch = 1.0f + (WaygetterUtils.random.nextFloat() - 0.5f) * 0.08f
-            val volume = 1.0f + (WaygetterUtils.random.nextFloat() - 0.5f) * 0.1f
+            val pitch = 1.0f + (WaygetterRandom.nextFloat() - 0.5f) * 0.08f
+            val volume = 1.0f + (WaygetterRandom.nextFloat() - 0.5f) * 0.1f
             mc.soundManager.play(SimpleSoundInstance.forUI(sound.event, pitch, volume))
         }
         controllers.add(controller)

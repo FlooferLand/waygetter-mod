@@ -12,6 +12,7 @@ import com.flooferland.waygetter.renderers.TattleNeedHudRenderer.NeedId.*
 import com.flooferland.waygetter.systems.tattletail.TattleManager
 import com.flooferland.waygetter.utils.ClientExtensions.fillGradientHorizontal
 import com.flooferland.waygetter.utils.Extensions.getHeldItem
+import com.flooferland.waygetter.utils.WaygetterRandom
 import com.flooferland.waygetter.utils.WaygetterUtils
 import com.flooferland.waygetter.utils.lerp
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
@@ -93,8 +94,8 @@ object TattleNeedHudRenderer {
         // Low light indicator
         val lowLightPad = 10
         if (TattleManager.getTooDark(level, player.blockPosition(), player)) {
-            val randX = (WaygetterUtils.random.nextFloat() * 1.3f).toInt()
-            val randY = (WaygetterUtils.random.nextFloat() * 1.3f).toInt()
+            val randX = (WaygetterRandom.nextFloat() * 1.3f).toInt()
+            val randY = (WaygetterRandom.nextFloat() * 1.3f).toInt()
             val x = pad + sep + barStart + barWidth + lowLightPad + randX
             val y = (sep * needs.size) + lowLightPad + randY
             for ((i, text) in arrayOf("LOW", "LIGHT").withIndex()) {

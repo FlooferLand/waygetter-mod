@@ -10,6 +10,7 @@ import com.flooferland.waygetter.registry.ModComponents
 import com.flooferland.waygetter.registry.ModItems
 import com.flooferland.waygetter.registry.ModSounds
 import com.flooferland.waygetter.systems.tattletail.TattleState
+import com.flooferland.waygetter.utils.WaygetterRandom
 import com.flooferland.waygetter.utils.WaygetterUtils
 import software.bernie.geckolib.animatable.GeoAnimatable
 import software.bernie.geckolib.animation.AnimatableManager
@@ -60,13 +61,14 @@ object TattletailClient {
                     "thats_me" -> event.controller.setAnimation(barkThatsMeAnim)
                     "tired" -> event.controller.setAnimation(arrayOf(barkNightNight, barkMeTired).random())
                     "uh_oh" -> {
-                        event.controller.animationSpeed = 0.8 + WaygetterUtils.random.nextDouble() * 0.4
+                        event.controller.animationSpeed = 0.8 + WaygetterRandom.nextDouble() * 0.4
                         event.controller.setAnimation(barkUhOh)
                     }
                     "ahh" -> {
                         Minecraft.getInstance()?.let { mc ->
+                            val level = mc.level ?: return@let
                             if (self is TattletailEntity) {
-                                mc.soundManager.play(SimpleSoundInstance(ModSounds.TattleBarkAhh.event, SoundSource.NEUTRAL, 1.0f, 1.0f, WaygetterUtils.random, self.blockPosition()))
+                                mc.soundManager.play(SimpleSoundInstance(ModSounds.TattleBarkAhh.event, SoundSource.NEUTRAL, 1.0f, 1.0f, level.random, self.blockPosition()))
                             } else {
                                 mc.soundManager.play(SimpleSoundInstance.forUI(ModSounds.TattleBarkAhh.event, 1.0f, 1.0f))
                             }
@@ -87,19 +89,20 @@ object TattletailClient {
         }
         controller.setSoundKeyframeHandler { event ->
             val mc = Minecraft.getInstance() ?: return@setSoundKeyframeHandler
+            val level = mc.level ?: return@setSoundKeyframeHandler
             val sound = sounds[event.keyframeData.sound] ?: return@setSoundKeyframeHandler
 
-            var pitch = 1.0f + (WaygetterUtils.random.nextFloat() - 0.5f) * 0.08f
-            val volume = 1.0f + (WaygetterUtils.random.nextFloat() - 0.5f) * 0.1f
+            var pitch = 1.0f + (WaygetterRandom.nextFloat() - 0.5f) * 0.08f
+            val volume = 1.0f + (WaygetterRandom.nextFloat() - 0.5f) * 0.1f
             when (sound) {
                 ModSounds.TattleBarkUhOh -> {
-                    pitch *= 0.8f + WaygetterUtils.random.nextFloat() * 0.4f
+                    pitch *= 0.8f + WaygetterRandom.nextFloat() * 0.4f
                 }
                 else -> {}
             }
 
             if (self is TattletailEntity) {
-                mc.soundManager.play(SimpleSoundInstance(sound.event, SoundSource.NEUTRAL, volume, pitch, WaygetterUtils.random, self.blockPosition()))
+                mc.soundManager.play(SimpleSoundInstance(sound.event, SoundSource.NEUTRAL, volume, pitch, level.random, self.blockPosition()))
             } else {
                 mc.soundManager.play(SimpleSoundInstance.forUI(sound.event, pitch, volume))
             }

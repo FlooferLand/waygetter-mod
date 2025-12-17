@@ -1,7 +1,7 @@
 package com.flooferland.waygetter.utils
 
-import net.minecraft.util.RandomSource
+import java.util.concurrent.ThreadLocalRandom
+import java.util.random.RandomGenerator
 
 object WaygetterUtils {
-    val random = RandomSource.create()!!
 }

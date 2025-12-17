@@ -22,6 +22,7 @@ import com.flooferland.waygetter.registry.ModSynchedData
 import com.flooferland.waygetter.systems.NoiseTracker
 import com.flooferland.waygetter.utils.Extensions.lookAt
 import com.flooferland.waygetter.utils.Extensions.secsToTicks
+import com.flooferland.waygetter.utils.WaygetterRandom
 import com.flooferland.waygetter.utils.WaygetterUtils
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
@@ -89,9 +90,9 @@ class TattleManager(val instance: ITattleInstance) {
         if (state.timeIdle > state.nextYapTime) {
             state.timeIdle = 0
             if (canYap) yap(level, state, needs)
-        } else if (state.timeIdle > state.nextYapTime * WaygetterUtils.random.nextFloat().coerceAtLeast(0.6f) && WaygetterUtils.random.nextIntBetweenInclusive(0, 5) == 2) {
+        } else if (state.timeIdle > state.nextYapTime * WaygetterRandom.nextFloat().coerceAtLeast(0.6f) && WaygetterRandom.nextInt(0, 5) == 2) {
             val lookDir = when {
-                WaygetterUtils.random.nextIntBetweenInclusive(0, 2) == 1 -> WaygetterUtils.random.nextIntBetweenInclusive(-1, 1).toByte()
+                WaygetterRandom.nextInt(0, 2) == 1 -> WaygetterRandom.nextInt(-1, 1).toByte()
                 else -> 0
             }
             if (lookDir != state.lookDir) {
@@ -124,7 +125,7 @@ class TattleManager(val instance: ITattleInstance) {
             }
             state.scared -> {
                 state.scared = false
-                state.nextYapTime = 5.secsToTicks() + WaygetterUtils.random.nextIntBetweenInclusive(1, 3).secsToTicks()
+                state.nextYapTime = 5.secsToTicks() + WaygetterRandom.nextInt(1, 3).secsToTicks()
             }
 
             // Low battery
@@ -140,7 +141,7 @@ class TattleManager(val instance: ITattleInstance) {
             }
             state.tired -> {
                 state.tired = false
-                state.nextYapTime = 3.secsToTicks() + WaygetterUtils.random.nextIntBetweenInclusive(1, 3).secsToTicks()
+                state.nextYapTime = 3.secsToTicks() + WaygetterRandom.nextInt(1, 3).secsToTicks()
             }
 
             // Low groom
@@ -156,7 +157,7 @@ class TattleManager(val instance: ITattleInstance) {
             }
 
             else -> {
-                state.nextYapTime = 3.secsToTicks() + WaygetterUtils.random.nextIntBetweenInclusive(5, 20).secsToTicks()
+                state.nextYapTime = 3.secsToTicks() + WaygetterRandom.nextInt(5, 20).secsToTicks()
                 playRandomIdle()
             }
         }

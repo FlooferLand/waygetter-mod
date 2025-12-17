@@ -10,7 +10,7 @@ import com.flooferland.waygetter.registry.ModSounds
 import com.flooferland.waygetter.systems.NoiseTracker
 import com.flooferland.waygetter.utils.Extensions.isProvokingMama
 import com.flooferland.waygetter.utils.Extensions.secsToTicks
-import com.flooferland.waygetter.utils.WaygetterUtils
+import com.flooferland.waygetter.utils.WaygetterRandom
 import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.atan2
@@ -69,7 +69,7 @@ class MamaChaseGoal(val mama: MamaEntity) : Goal() {
         val victimLastPos = victimLastPos ?: victim.position()
         val makingProgress = mama.distanceToSqr(victimLastPos) < mama.distanceToSqr(victim.position())
 
-        if (WaygetterUtils.random.nextIntBetweenInclusive(0, 6) == 3) {
+        if (WaygetterRandom.nextInt(0, 6) == 3) {
             tryMove(level, victim)
         }
         this.victimLastPos = victim.position()
@@ -82,9 +82,9 @@ class MamaChaseGoal(val mama: MamaEntity) : Goal() {
         val victimNoise = NoiseTracker.get(victim)
 
         for (attempt in 0..TP_MAX_ATTEMPTS) {
-            val angle = baseAngle + WaygetterUtils.random.nextDouble() * 2.0 * PI
+            val angle = baseAngle + WaygetterRandom.nextDouble() * 2.0 * PI
             val maxDist = TP_DIST_MAX * if (victimNoise > NoiseTracker.NOISE_MEDIUM) 1.0 else 1.5
-            val dist = WaygetterUtils.random.nextDouble() * (maxDist - TP_DIST_MIN) + TP_DIST_MIN
+            val dist = WaygetterRandom.nextDouble() * (maxDist - TP_DIST_MIN) + TP_DIST_MIN
             val target = victim.position().add(cos(angle) * dist, 0.0, sin(angle) * dist)
 
             findMovePos(level, victim, target)?.let { pos ->

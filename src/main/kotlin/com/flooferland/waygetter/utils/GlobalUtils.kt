@@ -28,7 +28,7 @@ fun playerMadeSound(level: Level, player: Player, sound: ModSounds, volume: Floa
     playerMadeSound(level, player, sound.event, volume, pitch, source)
 }
 fun playerMadeSound(level: Level, player: Player, event: SoundEvent, volume: Float = 1.0f, pitch: Float = 1.0f, source: SoundSource = SoundSource.PLAYERS) {
-    val pitch = pitch + ((WaygetterUtils.random.nextFloat() - 0.5f) * 0.12f)
+    val pitch = pitch + ((WaygetterRandom.nextFloat() - 0.5f) * 0.12f)
     level.playSound(player, player.blockPosition().above(), event, source, volume, pitch)
     player.playNotifySound(event, SoundSource.PLAYERS, volume, pitch)
 }
@@ -36,6 +36,6 @@ fun blockMadeSound(level: Level, player: Player, sound: ModSounds, volume: Float
     playerMadeSound(level, player, sound.event, volume, pitch, source)
 }
 fun blockMadeSound(level: Level, pos: BlockPos, event: SoundEvent, volume: Float = 1.0f, pitch: Float = 1.0f, source: SoundSource = SoundSource.BLOCKS, user: Player? = null) {
-    val pitch = pitch + ((WaygetterUtils.random.nextFloat() - 0.5f) * 0.12f)
+    val pitch = pitch + ((WaygetterRandom.nextFloat() - 0.5f) * 0.12f)
     level.playSound(user, pos, event, source, volume, pitch)
 }

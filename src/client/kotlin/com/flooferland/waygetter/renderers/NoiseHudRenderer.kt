@@ -3,6 +3,7 @@ package com.flooferland.waygetter.renderers
 import net.minecraft.client.*
 import net.minecraft.client.gui.*
 import net.minecraft.client.gui.screens.ChatScreen
+import net.minecraft.util.RandomSource
 import com.flooferland.waygetter.systems.NoiseTrackerClient
 import com.flooferland.waygetter.utils.Extensions.canMakeSound
 import com.flooferland.waygetter.utils.WaygetterUtils
@@ -14,6 +15,8 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
 // TODO: [Config] Add a way to change the position of the speaker
 
 object NoiseHudRenderer {
+    private val random = RandomSource.create()
+
     fun init() {
         HudRenderCallback.EVENT.register { graphics, delta ->
             val client = Minecraft.getInstance()
@@ -31,7 +34,7 @@ object NoiseHudRenderer {
         val pad = 10
         val size = 64
         val sizeAdd = (1f + (noise * 15f)).toInt()
-        val rotation = (WaygetterUtils.random.nextDouble() * 20.0) * noise
+        val rotation = (random.nextDouble() * 20.0) * noise
         val centerWidth = ((clientWidth - pad - size) + sizeAdd).toDouble()
         val centerHeight = pad + (size + sizeAdd) / 2.0
 
