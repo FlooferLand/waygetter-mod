@@ -50,8 +50,8 @@ object NoiseTracker {
             "block_place" -> NOISE_MEDIUM * 1.1f
             "block_destroy" -> NOISE_MEDIUM * 1.3f
             "block_open", "block_close" -> NOISE_MEDIUM * 1.2f
-            "hit_ground" -> NOISE_MEDIUM * 1.3f
-            "step" -> NOISE_MEDIUM * 1.3f
+            "hit_ground" -> NOISE_MEDIUM * 1.4f
+            "step" -> NOISE_MEDIUM * 0.7f
             else -> NOISE_MEDIUM
         }
         if (player.isSprinting) value *= 2f

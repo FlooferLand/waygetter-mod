@@ -38,7 +38,7 @@ class MamaEntity(level: Level) : PathfinderMob(ModEntities.Mama.type, level), Ge
         const val MAX_DIST_SQRT = MAX_DIST * MAX_DIST
     }
 
-    val attackLine = EntityLine(this, 2.5)
+    val attackLine = EntityLine(this, 5.0)
     val line = EntityLine(this, MAX_DIST)
     val sight = EntitySight(this, MAX_DIST)
     val cache = GeckoLibUtil.createInstanceCache(this)!!

@@ -12,7 +12,7 @@ import com.flooferland.waygetter.utils.Extensions.isProvokingMama
 import com.flooferland.waygetter.utils.Extensions.secsToTicks
 
 class MamaAttackGoal(val mama: MamaEntity) : Goal() {
-    var attackCooldown: Int = 0  // ticks
+    var ticksStressed: Int = 0
 
     fun getAttackable() = mama.attackLine.getFirst()
 
@@ -21,10 +21,16 @@ class MamaAttackGoal(val mama: MamaEntity) : Goal() {
     }
 
     override fun tick() {
-        if (attackCooldown > 0) { attackCooldown -= 1; return }
         val attackable = getAttackable() ?: return
-        val canAttack = !mama.isInvisible && attackable.isProvokingMama() && (NoiseTracker.get(attackable) > NoiseTracker.NOISE_QUIET)
-        if (attackCooldown == 0 && canAttack) {
+        if (ticksStressed < 1.secsToTicks()) {
+            ticksStressed += 1
+            return
+        } else if (ticksStressed > 0) {
+            ticksStressed -= 1
+        }
+
+        val canAttack = !mama.isInvisible && attackable.isProvokingMama() && (NoiseTracker.get(attackable) > NoiseTracker.NOISE_MEDIUM)
+        if (canAttack) {
             mama.doHurtTarget(attackable)
 
             attackable.addEffect(MobEffectInstance(MobEffects.DARKNESS, 5.secsToTicks(), 5, true, false))
@@ -35,7 +41,6 @@ class MamaAttackGoal(val mama: MamaEntity) : Goal() {
                 mama.level().playSound(null, mama.blockPosition(), ModSounds.MamaJumpscare.event, SoundSource.HOSTILE, 1f, 1f)
                 mama.remove(Entity.RemovalReason.DISCARDED)
             }
-            attackCooldown = 5
         }
     }
 }
