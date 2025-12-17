@@ -166,9 +166,8 @@ kotlin {
 publishMods {
     // Utils
     fun versionList(prop: String) = versionedDep(prop)
-        ?.split(',')
-        ?.map { it.trim() }
-        ?: emptyList()
+        .split(',')
+        .map { it.trim() }
 
     // Release
     val stableMcVersions = versionList("minecraft_lists")
@@ -200,9 +199,9 @@ publishMods {
             // TODO: Figure out a nice/safe way to add versions to the dependencies
             requires { slug.set("fabric-api") }
             requires { slug.set("fabric-language-kotlin") }
-            requires { slug.set("simple-voice-chat") }
+            requires { slug.set("veil") }
+            requires { slug.set("geckolib") }
             optional { slug.set("modmenu") }
-            optional { slug.set("figura") }
         }
     }
 
@@ -218,9 +217,9 @@ publishMods {
             // TODO: Figure out a nice/safe way to add versions to the dependencies
             requires { slug.set("fabric-api") }
             requires { slug.set("fabric-language-kotlin") }
-            requires { slug.set("simple-voice-chat") }
+            requires { slug.set("veil") }
+            requires { slug.set("geckolib") }
             optional { slug.set("modmenu") }
-            optional { slug.set("figura") }
         }
     }
 }

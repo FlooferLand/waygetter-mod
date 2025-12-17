@@ -1,12 +1,12 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Minecraft Client (:1.21.1-fabric)" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="net.fabricmc.devlaunchinjector.Main" />
-    <module name="waygetter.1.21.1-fabric.client" />
-    <shortenClasspath name="ARGS_FILE" />
-    <option name="VM_PARAMETERS" value="-Dfabric.dli.config=E:\Minecraft@@0020Mods\waygetter\versions\1.21.1-fabric\.gradle\loom-cache\launch.cfg -Dfabric.dli.env=client -Dfabric.dli.main=net.fabricmc.loader.impl.launch.knot.KnotClient" />
-    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/versions/1.21.1-fabric/../../run/" />
+  <configuration default="false" factoryName="Application" name="Minecraft Client (:1.21.1-fabric)" type="Application">
+    <option name="MAIN_CLASS_NAME" value="net.fabricmc.devlaunchinjector.Main"/>
+    <module name="waygetter.1.21.1-fabric.client"/>
+    <shortenClasspath name="ARGS_FILE"/>
+    <option name="VM_PARAMETERS" value="-Dfabric.dli.config=E:\Minecraft@@0020Mods\waygetter\versions\1.21.1-fabric\.gradle\loom-cache\launch.cfg -Dfabric.dli.env=client -Dfabric.dli.main=net.fabricmc.loader.impl.launch.knot.KnotClient"/>
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/versions/1.21.1-fabric/../../run/"/>
     <method v="2">
-      <option name="Make" enabled="true" />
+      <option enabled="true" name="Make"/>
     </method>
-  </configuration>
+  <classpathModifications/></configuration>
 </component>
