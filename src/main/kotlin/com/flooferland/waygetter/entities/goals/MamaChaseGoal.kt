@@ -79,10 +79,12 @@ class MamaChaseGoal(val mama: MamaEntity) : Goal() {
         val playerVel = victim.deltaMovement ?: return
         val moveDir = if (playerVel.horizontalDistanceSqr() > 0.001) playerVel.normalize() else victim.lookAngle
         val baseAngle = atan2(moveDir.z, moveDir.x)
+        val victimNoise = NoiseTracker.get(victim)
 
         for (attempt in 0..TP_MAX_ATTEMPTS) {
             val angle = baseAngle + WaygetterUtils.random.nextDouble() * 2.0 * PI
-            val dist = WaygetterUtils.random.nextDouble() * (TP_DIST_MAX - TP_DIST_MIN) + TP_DIST_MIN
+            val maxDist = TP_DIST_MAX * if (victimNoise > NoiseTracker.NOISE_MEDIUM) 1.0 else 1.5
+            val dist = WaygetterUtils.random.nextDouble() * (maxDist - TP_DIST_MIN) + TP_DIST_MIN
             val target = victim.position().add(cos(angle) * dist, 0.0, sin(angle) * dist)
 
             findMovePos(level, victim, target)?.let { pos ->

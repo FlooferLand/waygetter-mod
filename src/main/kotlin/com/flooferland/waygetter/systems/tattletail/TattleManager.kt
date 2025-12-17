@@ -41,7 +41,7 @@ class TattleManager(val instance: ITattleInstance) {
 
                         val mama = MamaEntity(level)
                         var mamaPos = tattletail.blockPosition()
-                        val positions = Array<BlockPos>(50) { BlockPos.containing(tattletail.getRandomX(10.0), tattletail.randomY, tattletail.getRandomZ(10.0)) }
+                        val positions = Array<BlockPos>(50) { BlockPos.containing(tattletail.getRandomX(32.0), tattletail.randomY, tattletail.getRandomZ(32.0)) }
                         for (pos in positions) {
                             if (level.getBlockState(pos).isAir && !(level.getBlockState(pos.below()).isAir || level.getBlockState(pos.below().below()).isAir)) {
                                 mamaPos = pos
